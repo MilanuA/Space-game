@@ -26,7 +26,8 @@ void MainMenu::Update(Vector2 mousePosition, bool mousePressed, SceneManager &sc
 {
     if (startButton.IsPressed(mousePosition, mousePressed))
     {
-        std::cout << "Start Button Pressed" << std::endl;
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+        sceneManager.SetCurrentScene(SceneType::GAME);
     }
 
     if (exitButton.IsPressed(mousePosition, mousePressed))
