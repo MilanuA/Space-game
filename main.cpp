@@ -6,22 +6,38 @@ int main(void)
     const int screenHeight = 450;
     const int fps = 60;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "Simple game");
 
     SetTargetFPS(fps);
 
     while (!WindowShouldClose())
     {
+        if (IsKeyPressed(KEY_F11))
+        {
+            int display = GetCurrentMonitor();
+            
+            if (IsWindowFullscreen())
+            {
+                SetWindowSize(screenWidth, screenHeight);
+            }
+            else
+            {
+                SetWindowSize(GetMonitorWidth(display), GetMonitorHeight(display));
+            }
+
+            ToggleFullscreen();
+        }
 
         BeginDrawing();
 
-            ClearBackground(RAYWHITE);
+        ClearBackground(RAYWHITE);
 
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        DrawText("Press Alt + Enter to Toggle full screen!", 190, 200, 20, LIGHTGRAY);
 
         EndDrawing();
     }
 
     CloseWindow();
+
     return 0;
 }
