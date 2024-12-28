@@ -11,8 +11,7 @@ public:
     void Draw();
     void SetPosition(Vector2 newPosition);
     bool IsPressed(Vector2 mousePos, bool mousePressed);
-    void Hovered();
-    void UnHovered();
+
 private:
     Texture2D texture;
     Vector2 position;
@@ -21,6 +20,9 @@ private:
 
     Color normalColor = WHITE;
     Color darkenColor = { 50, 50, 50, 255 };
+
+    void Hovered();
+    void UnHovered();
 };
 
 

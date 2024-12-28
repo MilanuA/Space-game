@@ -1,6 +1,5 @@
 #include "Button.h"
 
-
 Button::Button(const char *imagePath, Vector2 imagePosition, float scale)
 {
     Image image = LoadImage(imagePath);

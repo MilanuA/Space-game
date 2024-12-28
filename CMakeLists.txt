@@ -27,7 +27,16 @@ endif()
 # Our Project
 add_executable(${PROJECT_NAME} main.cpp
         src/ui/button/Button.cpp
-        src/ui/button/Button.h)
+        src/ui/button/Button.h
+        src/scenes/SceneManager.cpp
+        src/scenes/SceneManager.h
+        src/scenes/Scene.cpp
+        src/scenes/Scene.h
+        src/scenes/MainMenu.cpp
+        src/scenes/MainMenu.h
+        src/scenes/Game.cpp
+        src/scenes/Game.h
+)
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
         REQUIRED
