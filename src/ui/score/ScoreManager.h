@@ -9,7 +9,7 @@ class ScoreManager
 public:
     void UpdateScorePerSecond();
     void Draw() const;
-
+    void UpdateScore(int score);
 };
 
 
