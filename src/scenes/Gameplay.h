@@ -2,14 +2,12 @@
 #define GAMEPLAY_H
 #include "Scene.h"
 #include "../ship/MainShip.h"
+#include "../ui/score/ScoreManager.h"
 
 
 class Gameplay : public Scene
 {
-    int score;
-    float scorePerSecond = 1.0f;
-    void UpdateScorePerSecond();
-
+    ScoreManager scoreManager;
     MainShip mainShip;
 public:
     Gameplay();

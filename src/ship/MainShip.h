@@ -10,7 +10,6 @@ class MainShip
 
     float dragSpeed = 40.0f;
 
-
 public:
     void UpdatePosition(Vector2 mousePosition);
     void DrawShip() const;
