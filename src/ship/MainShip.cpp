@@ -1,4 +1,5 @@
 #include "MainShip.h"
+#include <cmath>
 
 void MainShip::Init()
 {
@@ -14,11 +15,16 @@ void MainShip::UpdatePosition(Vector2 mousePosition)
 
 void MainShip::DrawShip() const
 {
-    DrawTexture(shipTexture, shipPosition.x - shipTexture.width / 2, shipPosition.y - shipTexture.height / 2, WHITE);
+    float x = GetMouseX() - shipPosition.x,
+    y = GetMouseY() - shipPosition.y;
+        float rotation = std::atan2(x, y) * -57.29578f; // Convert radians to degrees
+
+    DrawTexturePro(shipTexture, Rectangle{0, 0, (float)shipTexture.width, (float)shipTexture.height},
+                           { shipPosition.x, shipPosition.y, (float)shipTexture.width, (float)shipTexture.height},
+                           { (float)shipTexture.width/2, (float)shipTexture.height/2 }, rotation+180, RAYWHITE);
 }
 
 MainShip::~MainShip()
 {
     UnloadTexture(shipTexture);
-
 }

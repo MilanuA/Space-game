@@ -9,11 +9,13 @@ class MainShip
     Texture2D shipTexture = {};
 
     float dragSpeed = 40.0f;
+    float shipRotation = 0.0f;
 
 public:
     void UpdatePosition(Vector2 mousePosition);
     void DrawShip() const;
     void Init();
+    Vector2 GetPosition() const { return shipPosition; }
     ~MainShip();
 };
 
