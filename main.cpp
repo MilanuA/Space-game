@@ -9,16 +9,22 @@ int main(void)
 {
     const int fps = 60;
 
-    InitWindow(800, 450, "Simple game");
+    // Init window
+    InitWindow(800, 450, "Asteroids Clone");
     SetTargetFPS(fps);
     ToggleFullscreen();
 
+    // Create the scene manager
     SceneManager sceneManager;
+
+    // Register each scene
     sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenu>());
     sceneManager.RegisterScene(SceneType::GAME, std::make_unique<Gameplay>());
 
-    sceneManager.SetCurrentScene(SceneType::GAME);
+    // Set the current scene
+    sceneManager.SetCurrentScene(SceneType::MAIN_MENU);
 
+    // Main game loop
     while (!WindowShouldClose() && !sceneManager.ShouldExit())
     {
         Vector2 mousePosition = GetMousePosition();
@@ -32,7 +38,6 @@ int main(void)
 
         EndDrawing();
     }
-
 
     CloseWindow();
 

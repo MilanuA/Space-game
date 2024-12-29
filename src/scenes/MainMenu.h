@@ -5,6 +5,19 @@
 
 class MainMenu : public Scene
 {
+    Button startButton;
+    Button exitButton;
+    Texture2D background;
+    Rectangle backgroundSourceRec;
+    Rectangle backgroundDestRec;
+
+    int animationFrameWidth;
+    int currentFrame;
+    float frameTime;
+    float elapsedTime;
+
+    void ButtonInteraction(Vector2 mousePosition, bool mousePressed, SceneManager &sceneManager);
+    void BackgroundAnimation();
 public:
     MainMenu();
     void Init() override;
@@ -13,11 +26,7 @@ public:
     void Unload() override;
 
 private:
-    Button startButton;
-    Button exitButton;
-    Texture2D background;
-    Rectangle backgroundSourceRec;
-    Rectangle backgroundDestRec;
+
 };
 
 #endif //MAINMENU_H

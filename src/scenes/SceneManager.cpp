@@ -1,46 +1,43 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
-void SceneManager::RegisterScene(SceneType type, std::unique_ptr<Scene> scene)
+void SceneManager::RegisterScene(SceneType const type, std::unique_ptr<Scene> scene)
 {
     scenes[type] = std::move(scene);
 }
 
-void SceneManager::SetCurrentScene(SceneType type)
+void SceneManager::SetCurrentScene(SceneType const type)
 {
     if (currentScene)
     {
         currentScene->Unload();
     }
 
+
     currentScene = scenes[type].get();
 
-    if (currentScene)
-    {
-        currentScene->Init();
-    }
+    if (!currentScene) return;
+
+    currentScene->Init();
 }
 
-void SceneManager::Update(Vector2 mousePosition, bool mousePressed)
+void SceneManager::Update(Vector2 const mousePosition, bool const mousePressed)
 {
-    if (currentScene)
-    {
-        currentScene->Update(mousePosition, mousePressed, *this);
-    }
+    if (!currentScene) return;
+
+    currentScene->Update(mousePosition, mousePressed, *this);
 }
 
 void SceneManager::Draw() const
 {
-    if (currentScene)
-    {
-        currentScene->Draw();
-    }
+    if (!currentScene) return;
+
+    currentScene->Draw();
 }
 
 void SceneManager::UnloadCurrentScene() const
 {
-    if (currentScene)
-    {
-        currentScene->Unload();
-    }
+    if (!currentScene) return;
+
+    currentScene->Unload();
 }
