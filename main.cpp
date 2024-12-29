@@ -17,7 +17,7 @@ int main(void)
     sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenu>());
     sceneManager.RegisterScene(SceneType::GAME, std::make_unique<Gameplay>());
 
-    sceneManager.SetCurrentScene(SceneType::MAIN_MENU);
+    sceneManager.SetCurrentScene(SceneType::GAME);
 
     while (!WindowShouldClose() && !sceneManager.ShouldExit())
     {

@@ -1,12 +1,16 @@
-
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 #include "Scene.h"
+#include "../ship/MainShip.h"
 
 
-class Gameplay : public  Scene
+class Gameplay : public Scene
 {
+    int score;
+    float scorePerSecond = 1.0f;
+    void UpdateScorePerSecond();
 
+    MainShip mainShip;
 public:
     Gameplay();
     void Init() override;
@@ -14,6 +18,7 @@ public:
     void Draw() override;
     void Unload() override;
 
+    ~Gameplay() override;
 };
 
 

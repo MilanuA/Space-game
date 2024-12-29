@@ -36,6 +36,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/scenes/MainMenu.h
         src/scenes/Gameplay.cpp
         src/scenes/Gameplay.h
+        src/ship/MainShip.cpp
+        src/ship/MainShip.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
