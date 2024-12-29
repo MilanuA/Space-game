@@ -10,9 +10,11 @@ int main(void)
     const int fps = 60;
 
     // Init window
+    SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
     InitWindow(800, 450, "Asteroids Clone");
+
+    ToggleBorderlessWindowed();
     SetTargetFPS(fps);
-    ToggleFullscreen();
 
     // Create the scene manager
     SceneManager sceneManager;
