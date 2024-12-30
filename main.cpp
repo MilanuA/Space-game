@@ -10,10 +10,10 @@ int main(void)
     const int fps = 60;
 
     // Init window
-    SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
+    //SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
     InitWindow(800, 450, "Asteroids Clone");
 
-    ToggleBorderlessWindowed();
+  //  ToggleBorderlessWindowed();
     SetTargetFPS(fps);
 
     // Create the scene manager
@@ -24,7 +24,7 @@ int main(void)
     sceneManager.RegisterScene(SceneType::GAME, std::make_unique<Gameplay>());
 
     // Set the current scene
-    sceneManager.SetCurrentScene(SceneType::MAIN_MENU);
+    sceneManager.SetCurrentScene(SceneType::GAME);
 
     // Main game loop
     while (!WindowShouldClose() && !sceneManager.ShouldExit())

@@ -1,5 +1,7 @@
 #include "Projectile.h"
 #include <cmath>
+#include <iostream>
+#include <raymath.h>
 
 Projectile::Projectile()
 {
@@ -16,9 +18,11 @@ Projectile::Projectile(Vector2 startPos, Vector2 direction, float speed) : Proje
 void Projectile::Init(Vector2 startPos, Vector2 direction, float speed)
 {
     position = startPos;
-    velocity = direction;
+    velocity = Vector2Normalize(direction);
     projectileSpeed = speed;
-    rotation = std::atan2(velocity.y, velocity.x) * -57.29578f;
+
+    rotation = std::atan2(velocity.y, velocity.x) * RAD2DEG;
+
     Activate();
 }
 
@@ -29,6 +33,7 @@ void Projectile::Update(float deltaTime)
 
     position.x += velocity.x * deltaTime * projectileSpeed;
     position.y += velocity.y * deltaTime * projectileSpeed;
+
 
     UpdateSprites(deltaTime);
 
@@ -46,7 +51,8 @@ void Projectile::Draw() const
     Rectangle sourceRect = {static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
     Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
     Vector2 origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameHeight) / 2};
-    DrawTexturePro(spriteSheet, sourceRect, destRect, origin, rotation, WHITE);
+
+    DrawTexturePro(spriteSheet, sourceRect, destRect, origin, rotation + 90, WHITE);
 }
 
 

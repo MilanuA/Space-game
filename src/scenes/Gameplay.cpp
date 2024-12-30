@@ -32,7 +32,6 @@ void Gameplay::Draw()
     mainShip.DrawShip();
 
     projectilePool.DrawAllObjects();
-
 }
 
 void Gameplay::Unload()
@@ -60,8 +59,6 @@ void Gameplay::SpawnProjectile(Vector2 mousePosition)
     {
         projectile->Init(mainShip.GetPosition(), direction, 250.0f);
     }
-
-
 }
 
 Gameplay::~Gameplay()
