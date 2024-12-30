@@ -4,8 +4,7 @@
 
 #include "../ship/Projectile.h"
 
-
-Gameplay::Gameplay()
+Gameplay::Gameplay() : projectilePool(INITIAL_POOL_SIZE)
 {
 }
 
@@ -21,28 +20,10 @@ void Gameplay::Update(Vector2 const mousePosition, bool const wasLeftMousePresse
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        Vector2 direction = Vector2Subtract(mousePosition, mainShip.GetPosition());
-        float length = Vector2Length(direction);
-
-        if (length > 0.0f)
-        {
-            direction = Vector2Normalize(direction);
-        }
-
-        Projectile projectile(mainShip.GetPosition(), direction, 250.0f);
-        projectiles.push_back(std::move(projectile));
+        SpawnProjectile(mousePosition);
     }
 
-    const float deltaTime = GetFrameTime();
-
-    for (auto &projectile : projectiles)
-    {
-        projectile.UpdateProjectile(deltaTime);
-    }
-
-    projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
-                                     [](const Projectile &p) { return !p.IsActive(); }),
-                      projectiles.end());
+    UpdateProjectiles();
 }
 
 void Gameplay::Draw()
@@ -50,14 +31,37 @@ void Gameplay::Draw()
     scoreManager.Draw();
     mainShip.DrawShip();
 
-    for (const auto &projectile : projectiles)
-    {
-        projectile.DrawProjectile();
-    }
+    projectilePool.DrawAllObjects();
+
 }
 
 void Gameplay::Unload()
 {
+}
+
+void Gameplay::UpdateProjectiles()
+{
+    const float deltaTime = GetFrameTime();
+
+    projectilePool.UpdateAllObjects(deltaTime);
+}
+
+void Gameplay::SpawnProjectile(Vector2 mousePosition)
+{
+    Vector2 direction = Vector2Subtract(mousePosition, mainShip.GetPosition());
+    float length = Vector2Length(direction);
+
+    if (length > 0.0f)
+    {
+        direction = Vector2Normalize(direction);
+    }
+
+    if (Projectile* projectile = projectilePool.GetAvailableObject())
+    {
+        projectile->Init(mainShip.GetPosition(), direction, 250.0f);
+    }
+
+
 }
 
 Gameplay::~Gameplay()

@@ -42,6 +42,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/ui/score/ScoreManager.h
         src/ship/Projectile.cpp
         src/ship/Projectile.h
+        src/objectPooling/PoolableObject.cpp
+        src/objectPooling/PoolableObject.h
+        src/objectPooling/ObjectPool.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

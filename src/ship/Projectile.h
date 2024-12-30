@@ -2,10 +2,12 @@
 #define PROJECTILE_H
 #include <raylib.h>
 
-class Projectile
+#include "../objectPooling/PoolableObject.h"
+
+class Projectile : public PoolableObject
 {
-    Vector2 position;
-    Vector2 velocity;
+    Vector2 position = {0.0f, 0.0f};
+    Vector2 velocity = {0.0f, 0.0f};
 
     Texture2D spriteSheet = {};
     int frameWidth = 0;
@@ -16,16 +18,19 @@ class Projectile
     float rotation = 0.0f;
     float frameTime = 0.1f;
     float elapsedTime = 0.0f;
-    bool isActive = true;
 
     void UpdateSprites(float deltaTime);
-public:
-    Projectile(Vector2 startPos, Vector2 direction, float speed);
-    void UpdateProjectile(float deltaTime);
-    void DrawProjectile() const;
-    bool CheckCollision(Rectangle target) const;
 
-    bool IsActive() const { return isActive; }
+
+public:
+    Projectile();
+    Projectile(Vector2 startPos, Vector2 direction, float speed);
+
+    void Init(Vector2 startPos, Vector2 direction, float speed);
+
+    void Update(float deltaTime) override;
+    void Draw() const override;
+    bool CheckCollision(Rectangle target) const;
 };
 
 

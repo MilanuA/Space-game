@@ -20,6 +20,7 @@ class SceneManager
     bool exitGame = false;
 
 public:
+    
     void RegisterScene(SceneType type, std::unique_ptr<Scene> scene);
     void SetCurrentScene(SceneType type);
     void Update(Vector2 mousePosition, bool mousePressed);

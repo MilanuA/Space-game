@@ -1,20 +1,29 @@
 #include "Projectile.h"
 #include <cmath>
 
-Projectile::Projectile(Vector2 startPos, Vector2 direction, float speed): position(), velocity()
+Projectile::Projectile()
 {
-    position = startPos;
-    velocity = direction;
-
-    projectileSpeed = speed;
     spriteSheet = LoadTexture("../graphics/ships/projectiles/projectiles.png");
     frameWidth = spriteSheet.width / 3;
     frameHeight = spriteSheet.height;
-
-    rotation = std::atan2(velocity.y, velocity.x) * -57.29578f;
 }
 
-void Projectile::UpdateProjectile(float deltaTime)
+Projectile::Projectile(Vector2 startPos, Vector2 direction, float speed) : Projectile()
+{
+    Init(startPos, direction, speed);
+}
+
+void Projectile::Init(Vector2 startPos, Vector2 direction, float speed)
+{
+    position = startPos;
+    velocity = direction;
+    projectileSpeed = speed;
+    rotation = std::atan2(velocity.y, velocity.x) * -57.29578f;
+    Activate();
+}
+
+
+void Projectile::Update(float deltaTime)
 {
     if (!isActive) return;
 
@@ -26,11 +35,11 @@ void Projectile::UpdateProjectile(float deltaTime)
     // Deactivate if out of bounds
     if (position.x < 0 || position.x > GetScreenWidth() || position.y < 0 || position.y > GetScreenHeight())
     {
-        isActive = false;
+       Deactivate();
     }
 }
 
-void Projectile::DrawProjectile() const
+void Projectile::Draw() const
 {
     if (!isActive) return;
 
@@ -39,6 +48,7 @@ void Projectile::DrawProjectile() const
     Vector2 origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameHeight) / 2};
     DrawTexturePro(spriteSheet, sourceRect, destRect, origin, rotation, WHITE);
 }
+
 
 bool Projectile::CheckCollision(Rectangle target) const
 {

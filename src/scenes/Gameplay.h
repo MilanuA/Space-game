@@ -1,19 +1,23 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
-#include <vector>
 
 #include "Scene.h"
+#include "../objectPooling/ObjectPool.h"
 #include "../ship/MainShip.h"
+#include "../ship/Projectile.h"
 #include "../ui/score/ScoreManager.h"
 
-class Projectile;
+constexpr size_t INITIAL_POOL_SIZE = 20;
 
 class Gameplay : public Scene
 {
     ScoreManager scoreManager;
     MainShip mainShip;
-    std::vector<Projectile> projectiles;
 
+    ObjectPool<Projectile> projectilePool;
+
+    void SpawnProjectile(Vector2 mousePosition);
+    void UpdateProjectiles();
 public:
     Gameplay();
     void Init() override;
