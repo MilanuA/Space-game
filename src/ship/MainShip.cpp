@@ -3,7 +3,7 @@
 
 void MainShip::Init()
 {
-    shipTexture = LoadTexture("../graphics/ships/mainship.png");
+    shipTexture = LoadTexture("../resources/ships/mainship.png");
     shipPosition = {400, 300};
 }
 

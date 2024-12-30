@@ -10,11 +10,12 @@ int main(void)
     const int fps = 60;
 
     // Init window
-    //SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
+    SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
     InitWindow(800, 450, "Asteroids Clone");
-
-  //  ToggleBorderlessWindowed();
+    ToggleBorderlessWindowed();
     SetTargetFPS(fps);
+
+    InitAudioDevice();
 
     // Create the scene manager
     SceneManager sceneManager;
@@ -42,6 +43,7 @@ int main(void)
     }
 
     CloseWindow();
+    CloseAudioDevice();
 
     return 0;
 }

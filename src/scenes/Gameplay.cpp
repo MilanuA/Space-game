@@ -4,17 +4,22 @@
 
 #include "../ship/Projectile.h"
 
-Gameplay::Gameplay() : projectilePool(INITIAL_POOL_SIZE)
+Gameplay::Gameplay() : music(), projectilePool(INITIAL_POOL_SIZE)
 {
 }
 
 void Gameplay::Init()
 {
     mainShip.Init();
+
+    music = LoadMusicStream("../resources/audio/spaceMusic.mp3");
+    PlayMusicStream(music);
 }
 
 void Gameplay::Update(Vector2 const mousePosition, bool const wasLeftMousePressed, SceneManager &sceneManager)
 {
+    UpdateMusicStream(music);
+
     scoreManager.UpdateScorePerSecond();
     mainShip.UpdatePosition(mousePosition);
 
@@ -36,6 +41,7 @@ void Gameplay::Draw()
 
 void Gameplay::Unload()
 {
+    UnloadMusicStream(music);
 }
 
 void Gameplay::UpdateProjectiles()

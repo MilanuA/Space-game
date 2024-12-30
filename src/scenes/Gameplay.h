@@ -13,7 +13,7 @@ class Gameplay : public Scene
 {
     ScoreManager scoreManager;
     MainShip mainShip;
-
+    Music music;
     ObjectPool<Projectile> projectilePool;
 
     void SpawnProjectile(Vector2 mousePosition);

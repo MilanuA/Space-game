@@ -4,8 +4,8 @@
 constexpr int BACKGROUND_FRAMES = 4;
 
 MainMenu::MainMenu()
-    : startButton("../graphics/start_button.png", {0.0f, 0.0f}, 0.5f),
-      exitButton("../graphics/exit_button.png", {0.0f, 0.0f}, 0.5f),
+    : startButton("../resources/start_button.png", {0.0f, 0.0f}, 0.5f),
+      exitButton("../resources/exit_button.png", {0.0f, 0.0f}, 0.5f),
       background({}), backgroundSourceRec({0}), backgroundDestRec({0}),
       animationFrameWidth(0), currentFrame(0), frameTime(0.2f), elapsedTime(0.0f)
 {
@@ -16,7 +16,7 @@ void MainMenu::Init()
      int screenWidth = GetMonitorWidth(GetCurrentMonitor());
      int screenHeight = GetMonitorHeight(GetCurrentMonitor());
 
-    background = LoadTexture("../graphics/background.png");
+    background = LoadTexture("../resources/background.png");
 
     animationFrameWidth = background.width / BACKGROUND_FRAMES;
 

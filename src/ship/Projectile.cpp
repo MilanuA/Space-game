@@ -5,7 +5,7 @@
 
 Projectile::Projectile()
 {
-    spriteSheet = LoadTexture("../graphics/ships/projectiles/projectiles.png");
+    spriteSheet = LoadTexture("../resources/ships/projectiles/projectiles.png");
     frameWidth = spriteSheet.width / 3;
     frameHeight = spriteSheet.height;
 }
