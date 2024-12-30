@@ -2,12 +2,14 @@
 #define GAMEPLAY_H
 
 #include "Scene.h"
+#include "../inGameObjects/Asteroid.h"
 #include "../objectPooling/ObjectPool.h"
 #include "../ship/MainShip.h"
 #include "../ship/Projectile.h"
 #include "../ui/score/ScoreManager.h"
 
-constexpr size_t INITIAL_POOL_SIZE = 20;
+constexpr size_t INITIAL_PROJECTILE_POOL_SIZE = 20;
+constexpr size_t INITIAL_ASTEROID_POOL_SIZE = 20;
 
 class Gameplay : public Scene
 {
@@ -15,6 +17,7 @@ class Gameplay : public Scene
     MainShip mainShip;
     Music music;
     ObjectPool<Projectile> projectilePool;
+    ObjectPool<Asteroid> asteroidPool;
 
     void SpawnProjectile(Vector2 mousePosition);
     void UpdateProjectiles();

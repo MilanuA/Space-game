@@ -4,7 +4,7 @@
 
 #include "../ship/Projectile.h"
 
-Gameplay::Gameplay() : music(), projectilePool(INITIAL_POOL_SIZE)
+Gameplay::Gameplay() : music(), projectilePool(INITIAL_PROJECTILE_POOL_SIZE), asteroidPool(INITIAL_ASTEROID_POOL_SIZE)
 {
 }
 
@@ -37,6 +37,7 @@ void Gameplay::Draw()
     mainShip.DrawShip();
 
     projectilePool.DrawAllObjects();
+    asteroidPool.DrawAllObjects();
 }
 
 void Gameplay::Unload()
@@ -49,6 +50,7 @@ void Gameplay::UpdateProjectiles()
     const float deltaTime = GetFrameTime();
 
     projectilePool.UpdateAllObjects(deltaTime);
+    asteroidPool.UpdateAllObjects(deltaTime);
 }
 
 void Gameplay::SpawnProjectile(Vector2 mousePosition)

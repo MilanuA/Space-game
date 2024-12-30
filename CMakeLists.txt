@@ -45,6 +45,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/objectPooling/PoolableObject.cpp
         src/objectPooling/PoolableObject.h
         src/objectPooling/ObjectPool.h
+        src/inGameObjects/Asteroid.cpp
+        src/inGameObjects/Asteroid.h
+        src/health/IHealth.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
