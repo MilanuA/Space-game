@@ -2,17 +2,19 @@
 
 #include <raymath.h>
 
+
+
 ObjectsSpawner::ObjectsSpawner(): projectilePool(INITIAL_PROJECTILE_POOL_SIZE), asteroidPool(INITIAL_PROJECTILE_POOL_SIZE)
 {
 }
 
-void ObjectsSpawner::DrawPools() const
+void ObjectsSpawner::Draw() const
 {
     projectilePool.DrawAllObjects();
     asteroidPool.DrawAllObjects();
 }
 
-void ObjectsSpawner::UpdatePools(float deltaTime)
+void ObjectsSpawner::Update(float deltaTime)
 {
     projectilePool.UpdateAllObjects(deltaTime);
     asteroidPool.UpdateAllObjects(deltaTime);
@@ -30,11 +32,14 @@ void ObjectsSpawner::SpawnProjectile(Vector2 mousePosition, MainShip &mainShip)
         direction = Vector2Normalize(direction);
     }
 
-    constexpr float spawnDistance = 30.0f;
-    Vector2 spawnPosition = Vector2Add(mainShip.GetPosition(), Vector2Scale(direction, spawnDistance));
+    Vector2 spawnPosition = Vector2Add(mainShip.GetPosition(), Vector2Scale(direction, SPAWN_DISTANCE));
 
     if (Projectile* projectile = projectilePool.GetAvailableObject())
     {
         projectile->Init(spawnPosition, direction, 250.0f);
     }
+}
+
+void ObjectsSpawner::SpawnAsteroid()
+{
 }

@@ -13,7 +13,7 @@ public:
 
     virtual void TakeDamage(int damage) = 0;
     virtual void Heal(int amount) = 0;
-
+    virtual void Death() = 0;
 protected:
     int maxHealth;
     int currentHealth;

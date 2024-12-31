@@ -28,14 +28,14 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
         objectsSpawner.SpawnProjectile(mousePosition, mainShip);
     }
 
-    objectsSpawner.UpdatePools(GetFrameTime());
+    objectsSpawner.Update(GetFrameTime());
 }
 
 void GameplayScene::Draw()
 {
     scoreManager.Draw();
     mainShip.DrawShip();
-    objectsSpawner.DrawPools();
+    objectsSpawner.Draw();
 }
 
 void GameplayScene::Unload()

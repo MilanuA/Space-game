@@ -8,16 +8,19 @@
 
 constexpr size_t INITIAL_PROJECTILE_POOL_SIZE = 20;
 constexpr size_t INITIAL_ASTEROID_POOL_SIZE = 20;
+constexpr int SPAWN_DISTANCE = 30;
 
 class ObjectsSpawner
 {
     ObjectPool<Projectile> projectilePool;
     ObjectPool<Asteroid> asteroidPool;
 
+    void SpawnAsteroid();
+
 public:
     ObjectsSpawner();
-    void DrawPools() const;
-    void UpdatePools(float deltaTime);
+    void Draw() const;
+    void Update(float deltaTime);
 
     void SpawnProjectile(Vector2 mousePosition, MainShip &mainShip);
 };
