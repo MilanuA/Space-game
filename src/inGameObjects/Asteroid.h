@@ -8,6 +8,7 @@ class Asteroid : public PoolableObject, public IHealth
 {
 
 public:
+    Asteroid();
     explicit Asteroid(int maxHealth);
 
     void Update(float deltaTime) override;

@@ -1,49 +1,107 @@
 #include "raylib.h"
-#include <iostream>
 
 #include "src/scenes/Gameplay.h"
 #include "src/scenes/MainMenu.h"
 #include "src/scenes/SceneManager.h"
 
+constexpr int FPS = 60;
+
+void InitGame();
+void DrawExitPrompt();
+void CloseGame();
+
+void UpdateGameLoop(bool &exitWindowRequested, SceneManager &sceneManager);
+void DrawGameLoop(bool const exitWindowRequested, const SceneManager &sceneManager);
+
 int main(void)
 {
-    const int fps = 60;
+    InitGame();
 
-    // Init window
+    bool exitWindowRequested = false;
+    bool exitWindow = false;
+
+    SceneManager sceneManager;
+    sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenu>());
+    sceneManager.RegisterScene(SceneType::GAME, std::make_unique<Gameplay>());
+    sceneManager.SetCurrentScene(SceneType::GAME);
+
+    while (!exitWindow)
+    {
+        if (WindowShouldClose() || sceneManager.ShouldExit()) exitWindowRequested = true;
+
+        if (exitWindowRequested)
+        {
+            if (IsKeyPressed(KEY_Y)) exitWindow = true;
+            else if (IsKeyPressed(KEY_N)) exitWindowRequested = false;
+        }
+
+        if (!exitWindowRequested)
+            UpdateGameLoop(exitWindowRequested, sceneManager);
+
+        DrawGameLoop(exitWindowRequested, sceneManager);
+    }
+
+    CloseGame();
+
+    return 0;
+}
+
+void InitGame()
+{
     SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
     InitWindow(800, 450, "Asteroids Clone");
     ToggleBorderlessWindowed();
-    SetTargetFPS(fps);
-
+    SetTargetFPS(FPS);
     InitAudioDevice();
+}
 
-    // Create the scene manager
-    SceneManager sceneManager;
+void UpdateGameLoop(bool &exitWindowRequested, SceneManager &sceneManager)
+{
+    Vector2 mousePosition = GetMousePosition();
+    bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 
-    // Register each scene
-    sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenu>());
-    sceneManager.RegisterScene(SceneType::GAME, std::make_unique<Gameplay>());
+    sceneManager.Update(mousePosition, mousePressed);
 
-    // Set the current scene
-    sceneManager.SetCurrentScene(SceneType::GAME);
-
-    // Main game loop
-    while (!WindowShouldClose() && !sceneManager.ShouldExit())
+    if (exitWindowRequested)
     {
-        Vector2 mousePosition = GetMousePosition();
-        bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+        if (IsKeyPressed(KEY_Y)) sceneManager.Exit();
+        else if (IsKeyPressed(KEY_N) ) exitWindowRequested = false;
+    }
+}
 
-        sceneManager.Update(mousePosition, mousePressed);
+void DrawGameLoop(bool const exitWindowRequested, const SceneManager &sceneManager)
+{
+    BeginDrawing();
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        sceneManager.Draw();
+    ClearBackground(RAYWHITE);
+    sceneManager.Draw();
 
-        EndDrawing();
+    if (exitWindowRequested)
+    {
+        DrawExitPrompt();
     }
 
+    EndDrawing();
+}
+
+void DrawExitPrompt()
+{
+    const char *exitText = "Are you sure you want to exit the game? [Y/N]";
+    int exitPromptWidth = MeasureText(exitText, 40) + 50;
+    int exitPromptHeight = 200;
+    int exitPromptX = (GetScreenWidth() - exitPromptWidth) / 2;
+    int exitPromptY = (GetScreenHeight() - exitPromptHeight) / 2;
+
+    DrawRectangle(exitPromptX, exitPromptY, exitPromptWidth, exitPromptHeight, BLACK);
+
+    int textX = exitPromptX + (exitPromptWidth - MeasureText(exitText, 40)) / 2;
+    int textY = exitPromptY + (exitPromptHeight - 40) / 2;
+
+    DrawText(exitText, textX, textY, 40, WHITE);
+}
+
+void CloseGame()
+{
     CloseWindow();
     CloseAudioDevice();
-
-    return 0;
 }

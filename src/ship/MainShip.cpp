@@ -15,12 +15,13 @@ void MainShip::UpdatePosition(Vector2 mousePosition)
 
 void MainShip::DrawShip() const
 {
-    float x = GetMouseX() - shipPosition.x, y = GetMouseY() - shipPosition.y;
-    float rotation = std::atan2(y, x) * RAD2DEG;
+    const float x = static_cast<float>(GetMouseX()) - shipPosition.x;
+    const float y = static_cast<float>(GetMouseY()) - shipPosition.y;
+    const float rotation = std::atan2(y, x) * RAD2DEG;
 
-    Rectangle sourceRec = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
-    Rectangle destRec = { shipPosition.x, shipPosition.y, (float)shipTexture.width, (float)shipTexture.height };
-    Vector2 origin = { (float)shipTexture.width/2, (float)shipTexture.height/2 };
+    Rectangle sourceRec = {0, 0, static_cast<float>(shipTexture.width), static_cast<float>(shipTexture.height)};
+    Rectangle destRec = {shipPosition.x, shipPosition.y, static_cast<float>(shipTexture.width), static_cast<float>(shipTexture.height)};
+    Vector2 origin = {static_cast<float>(shipTexture.width) / 2, static_cast<float>(shipTexture.height) / 2};
 
     DrawTexturePro(shipTexture, sourceRec, destRec, origin, rotation + 90, RAYWHITE);
 }

@@ -1,5 +1,9 @@
 #include "Asteroid.h"
 
+Asteroid::Asteroid(): IHealth(150)
+{
+}
+
 Asteroid::Asteroid(int maxHealth): IHealth(maxHealth)
 {
 }
