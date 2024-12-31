@@ -1,9 +1,9 @@
-#include "MainMenu.h"
+#include "MainMenuScene.h"
 #include <iostream>
 
 constexpr int BACKGROUND_FRAMES = 4;
 
-MainMenu::MainMenu()
+MainMenuScene::MainMenuScene()
     : startButton("../resources/start_button.png", {0.0f, 0.0f}, 0.5f),
       exitButton("../resources/exit_button.png", {0.0f, 0.0f}, 0.5f),
       background({}), backgroundSourceRec({0}), backgroundDestRec({0}),
@@ -11,7 +11,7 @@ MainMenu::MainMenu()
 {
 }
 
-void MainMenu::Init()
+void MainMenuScene::Init()
 {
      int screenWidth = GetMonitorWidth(GetCurrentMonitor());
      int screenHeight = GetMonitorHeight(GetCurrentMonitor());
@@ -27,13 +27,13 @@ void MainMenu::Init()
     exitButton.SetPosition({(float)(screenWidth / 2 - 80), (float)(screenHeight / 2 + 50)});
 }
 
-void MainMenu::Update(Vector2 const mousePosition, bool const mousePressed, SceneManager &sceneManager)
+void MainMenuScene::Update(Vector2 const mousePosition, bool const mousePressed, SceneManager &sceneManager)
 {
     ButtonInteraction(mousePosition, mousePressed, sceneManager);
     BackgroundAnimation();
 }
 
-void MainMenu::Draw()
+void MainMenuScene::Draw()
 {
     DrawTexturePro(background, backgroundSourceRec, backgroundDestRec, {0.0f, 0.0f}, 0.0f, WHITE);
 
@@ -41,12 +41,12 @@ void MainMenu::Draw()
     exitButton.Draw();
 }
 
-void MainMenu::Unload()
+void MainMenuScene::Unload()
 {
     UnloadTexture(background);
 }
 
-void MainMenu::ButtonInteraction(Vector2 const mousePosition, bool const mousePressed, SceneManager &sceneManager)
+void MainMenuScene::ButtonInteraction(Vector2 const mousePosition, bool const mousePressed, SceneManager &sceneManager)
 {
     if (startButton.IsPressed(mousePosition, mousePressed))
     {
@@ -60,7 +60,7 @@ void MainMenu::ButtonInteraction(Vector2 const mousePosition, bool const mousePr
     }
 }
 
-void MainMenu::BackgroundAnimation()
+void MainMenuScene::BackgroundAnimation()
 {
     elapsedTime += GetFrameTime();
 

@@ -32,10 +32,10 @@ add_executable(${PROJECT_NAME} main.cpp
         src/scenes/SceneManager.h
         src/scenes/Scene.cpp
         src/scenes/Scene.h
-        src/scenes/MainMenu.cpp
-        src/scenes/MainMenu.h
-        src/scenes/Gameplay.cpp
-        src/scenes/Gameplay.h
+        src/scenes/MainMenuScene.cpp
+        src/scenes/MainMenuScene.h
+        src/scenes/GameplayScene.cpp
+        src/scenes/GameplayScene.h
         src/ship/MainShip.cpp
         src/ship/MainShip.h
         src/ui/score/ScoreManager.cpp

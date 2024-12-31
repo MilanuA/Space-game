@@ -1,14 +1,14 @@
-#include "Gameplay.h"
+#include "GameplayScene.h"
 
 #include <raymath.h>
 
 #include "../ship/Projectile.h"
 
-Gameplay::Gameplay() : music(), projectilePool(INITIAL_PROJECTILE_POOL_SIZE), asteroidPool(INITIAL_ASTEROID_POOL_SIZE)
+GameplayScene::GameplayScene() : music(), projectilePool(INITIAL_PROJECTILE_POOL_SIZE), asteroidPool(INITIAL_ASTEROID_POOL_SIZE)
 {
 }
 
-void Gameplay::Init()
+void GameplayScene::Init()
 {
     mainShip.Init();
 
@@ -16,7 +16,7 @@ void Gameplay::Init()
     PlayMusicStream(music);
 }
 
-void Gameplay::Update(Vector2 const mousePosition, bool const wasLeftMousePressed, SceneManager &sceneManager)
+void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMousePressed, SceneManager &sceneManager)
 {
     UpdateMusicStream(music);
 
@@ -31,7 +31,7 @@ void Gameplay::Update(Vector2 const mousePosition, bool const wasLeftMousePresse
     UpdateProjectiles();
 }
 
-void Gameplay::Draw()
+void GameplayScene::Draw()
 {
     scoreManager.Draw();
     mainShip.DrawShip();
@@ -40,12 +40,12 @@ void Gameplay::Draw()
     asteroidPool.DrawAllObjects();
 }
 
-void Gameplay::Unload()
+void GameplayScene::Unload()
 {
     UnloadMusicStream(music);
 }
 
-void Gameplay::UpdateProjectiles()
+void GameplayScene::UpdateProjectiles()
 {
     const float deltaTime = GetFrameTime();
 
@@ -53,7 +53,7 @@ void Gameplay::UpdateProjectiles()
     asteroidPool.UpdateAllObjects(deltaTime);
 }
 
-void Gameplay::SpawnProjectile(Vector2 mousePosition)
+void GameplayScene::SpawnProjectile(Vector2 mousePosition)
 {
     if (mainShip.IsMovingFast()) return;
 
@@ -75,7 +75,7 @@ void Gameplay::SpawnProjectile(Vector2 mousePosition)
 }
 
 
-Gameplay::~Gameplay()
+GameplayScene::~GameplayScene()
 {
 }
 

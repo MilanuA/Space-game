@@ -11,7 +11,7 @@
 constexpr size_t INITIAL_PROJECTILE_POOL_SIZE = 20;
 constexpr size_t INITIAL_ASTEROID_POOL_SIZE = 20;
 
-class Gameplay : public Scene
+class GameplayScene : public Scene
 {
     ScoreManager scoreManager;
     MainShip mainShip;
@@ -22,13 +22,13 @@ class Gameplay : public Scene
     void SpawnProjectile(Vector2 mousePosition);
     void UpdateProjectiles();
 public:
-    Gameplay();
+    GameplayScene();
     void Init() override;
     void Update(Vector2 mousePosition, bool wasLeftMousePressed, SceneManager &sceneManager) override;
     void Draw() override;
     void Unload() override;
 
-    ~Gameplay() override;
+    ~GameplayScene() override;
 };
 
 

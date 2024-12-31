@@ -1,7 +1,7 @@
 #include "raylib.h"
 
-#include "src/scenes/Gameplay.h"
-#include "src/scenes/MainMenu.h"
+#include "src/scenes/GameplayScene.h"
+#include "src/scenes/MainMenuScene.h"
 #include "src/scenes/SceneManager.h"
 
 constexpr int FPS = 60;
@@ -21,8 +21,8 @@ int main(void)
     bool exitWindow = false;
 
     SceneManager sceneManager;
-    sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenu>());
-    sceneManager.RegisterScene(SceneType::GAME, std::make_unique<Gameplay>());
+    sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenuScene>());
+    sceneManager.RegisterScene(SceneType::GAME, std::make_unique<GameplayScene>());
     sceneManager.SetCurrentScene(SceneType::GAME);
 
     while (!exitWindow)

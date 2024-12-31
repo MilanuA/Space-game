@@ -18,6 +18,7 @@ public:
     ObjectPool(size_t initialSize)
     {
         pool.reserve(initialSize);
+
         for (size_t i = 0; i < initialSize; ++i)
         {
             pool.emplace_back(std::make_unique<T>());
