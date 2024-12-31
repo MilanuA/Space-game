@@ -55,6 +55,8 @@ void Gameplay::UpdateProjectiles()
 
 void Gameplay::SpawnProjectile(Vector2 mousePosition)
 {
+    if (mainShip.IsMovingFast()) return;
+
     Vector2 direction = Vector2Subtract(mousePosition, mainShip.GetPosition());
     float length = Vector2Length(direction);
 
@@ -63,11 +65,15 @@ void Gameplay::SpawnProjectile(Vector2 mousePosition)
         direction = Vector2Normalize(direction);
     }
 
+    constexpr float spawnDistance = 30.0f;
+    Vector2 spawnPosition = Vector2Add(mainShip.GetPosition(), Vector2Scale(direction, spawnDistance));
+
     if (Projectile* projectile = projectilePool.GetAvailableObject())
     {
-        projectile->Init(mainShip.GetPosition(), direction, 250.0f);
+        projectile->Init(spawnPosition, direction, 250.0f);
     }
 }
+
 
 Gameplay::~Gameplay()
 {

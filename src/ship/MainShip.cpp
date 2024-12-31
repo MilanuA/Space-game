@@ -1,5 +1,6 @@
 #include "MainShip.h"
 #include <cmath>
+#include <raymath.h>
 
 void MainShip::Init()
 {
@@ -24,6 +25,14 @@ void MainShip::DrawShip() const
     Vector2 origin = {static_cast<float>(shipTexture.width) / 2, static_cast<float>(shipTexture.height) / 2};
 
     DrawTexturePro(shipTexture, sourceRec, destRec, origin, rotation + 90, RAYWHITE);
+}
+
+bool MainShip::IsMovingFast() const
+{
+    Vector2 mousePosition = {static_cast<float>(GetMouseX()), static_cast<float>(GetMouseY())};
+    Vector2 delta = Vector2Subtract(shipPosition, mousePosition);
+    float speed = Vector2Length(delta);
+    return speed > 200.0f;
 }
 
 MainShip::~MainShip()

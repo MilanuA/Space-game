@@ -16,6 +16,10 @@ public:
     void DrawShip() const;
     void Init();
     Vector2 GetPosition() const { return shipPosition; }
+
+    /// <summary> Checks if the ship is moving fast </summary>
+    /// <returns> true if the ship is moving fast, false otherwise </returns>
+    bool IsMovingFast() const;
     ~MainShip();
 };
 
