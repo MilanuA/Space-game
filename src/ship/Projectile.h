@@ -4,6 +4,9 @@
 
 #include "../objectPooling/PoolableObject.h"
 
+constexpr int PROJECTILE_SPRITE_SCALE = 2.0f;
+constexpr float PROJECTILE_SPEED = 350.0f;
+
 class Projectile : public PoolableObject
 {
     Vector2 position = {0.0f, 0.0f};
@@ -14,7 +17,6 @@ class Projectile : public PoolableObject
     int frameHeight = 0;
     int currentFrame = 0;
 
-    float projectileSpeed = 0.0f;
     float rotation = 0.0f;
     float frameTime = 0.1f;
     float elapsedTime = 0.0f;
@@ -24,9 +26,9 @@ class Projectile : public PoolableObject
 
 public:
     Projectile();
-    Projectile(Vector2 startPos, Vector2 direction, float speed);
+    Projectile(Vector2 startPos, Vector2 direction);
 
-    void Init(Vector2 startPos, Vector2 direction, float speed);
+    void Init(Vector2 startPos, Vector2 direction);
 
     void Update(float deltaTime) override;
     void Draw() const override;

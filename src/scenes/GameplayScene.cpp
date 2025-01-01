@@ -33,11 +33,12 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
 
 void GameplayScene::Draw()
 {
+    ClearBackground(Color(16,16,73, 255));
+
     scoreManager.Draw();
     mainShip.DrawShip();
     objectsSpawner.Draw();
 }
-
 void GameplayScene::Unload()
 {
     UnloadMusicStream(music);

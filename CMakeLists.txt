@@ -50,6 +50,7 @@ add_executable(${PROJECT_NAME} main.cpp
         src/health/IHealth.h
         src/scenes/Gameplay/ObjectsSpawner.cpp
         src/scenes/Gameplay/ObjectsSpawner.h
+        src/Helper.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

@@ -18,7 +18,7 @@ void ScoreManager::Draw() const
 {
     const std::string scoreText = "Score: " + std::to_string(currentScore);
 
-    DrawText(scoreText.c_str(), 10, 10, 40, BLACK);
+    DrawText(scoreText.c_str(), 10, 10, 40, WHITE);
 }
 
 void ScoreManager::UpdateScore(int score)

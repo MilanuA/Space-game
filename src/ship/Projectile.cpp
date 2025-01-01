@@ -3,6 +3,8 @@
 #include <iostream>
 #include <raymath.h>
 
+#include "../Helper.h"
+
 Projectile::Projectile()
 {
     spriteSheet = LoadTexture("../resources/ships/projectiles/projectiles.png");
@@ -10,16 +12,15 @@ Projectile::Projectile()
     frameHeight = spriteSheet.height;
 }
 
-Projectile::Projectile(Vector2 startPos, Vector2 direction, float speed) : Projectile()
+Projectile::Projectile(Vector2 startPos, Vector2 direction) : Projectile()
 {
-    Init(startPos, direction, speed);
+    Init(startPos, direction);
 }
 
-void Projectile::Init(Vector2 startPos, Vector2 direction, float speed)
+void Projectile::Init(Vector2 startPos, Vector2 direction)
 {
     position = startPos;
     velocity = Vector2Normalize(direction);
-    projectileSpeed = speed;
 
     rotation = std::atan2(velocity.y, velocity.x) * RAD2DEG;
 
@@ -31,14 +32,14 @@ void Projectile::Update(float deltaTime)
 {
     if (!isActive) return;
 
-    position.x += velocity.x * deltaTime * projectileSpeed;
-    position.y += velocity.y * deltaTime * projectileSpeed;
+    position.x += velocity.x * deltaTime * PROJECTILE_SPEED;
+    position.y += velocity.y * deltaTime * PROJECTILE_SPEED;
 
 
     UpdateSprites(deltaTime);
 
     // Deactivate if out of bounds
-    if (position.x < 0 || position.x > GetScreenWidth() || position.y < 0 || position.y > GetScreenHeight())
+    if (Helper::IsOutsideScreen(position))
     {
        Deactivate();
     }
@@ -49,12 +50,11 @@ void Projectile::Draw() const
     if (!isActive) return;
 
     Rectangle sourceRect = {static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
-    Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
+    Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * PROJECTILE_SPRITE_SCALE, static_cast<float>(frameHeight) * PROJECTILE_SPRITE_SCALE};
     Vector2 origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameHeight) / 2};
 
     DrawTexturePro(spriteSheet, sourceRect, destRect, origin, rotation + 90, WHITE);
 }
-
 
 bool Projectile::CheckCollision(Rectangle target) const
 {

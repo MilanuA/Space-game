@@ -2,7 +2,7 @@
 #define MAINSHIP_H
 #include <raylib.h>
 
-
+constexpr float SHIP_SPRITE_SCALE = 1.5f;
 class MainShip
 {
     Vector2 shipPosition = {};
