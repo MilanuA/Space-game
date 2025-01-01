@@ -1,11 +1,9 @@
 #include "GameplayScene.h"
 
-#include <raymath.h>
 
-#include "../ship/Projectile.h"
-
-GameplayScene::GameplayScene() : music()
+GameplayScene::GameplayScene() : objectsSpawner(scoreManager),  music()
 {
+
 }
 
 void GameplayScene::Init()
@@ -22,6 +20,8 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
 
     scoreManager.UpdateScorePerSecond();
     mainShip.UpdatePosition(mousePosition);
+
+    CollisionManager::GetInstance().CheckCollisions();
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {

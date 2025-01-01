@@ -4,12 +4,14 @@
 #include <raymath.h>
 
 #include "../Helper.h"
+#include "../gameobject/inGameObjects/Asteroid.h"
+class Asteroid;
 
-Projectile::Projectile()
+Projectile::Projectile(): Gameobject(GameobjectsEnum::Projectile)
 {
-    spriteSheet = LoadTexture("../resources/ships/projectiles/projectiles.png");
-    frameWidth = spriteSheet.width / 3;
-    frameHeight = spriteSheet.height;
+    texture = LoadTexture("../resources/ships/projectiles/projectiles.png");
+    frameWidth = texture.width / 3;
+    frameHeight = texture.height;
 }
 
 Projectile::Projectile(Vector2 startPos, Vector2 direction) : Projectile()
@@ -25,8 +27,8 @@ void Projectile::Init(Vector2 startPos, Vector2 direction)
     rotation = std::atan2(velocity.y, velocity.x) * RAD2DEG;
 
     Activate();
+    CollisionManager::GetInstance().AddObject(this);
 }
-
 
 void Projectile::Update(float deltaTime)
 {
@@ -35,13 +37,12 @@ void Projectile::Update(float deltaTime)
     position.x += velocity.x * deltaTime * PROJECTILE_SPEED;
     position.y += velocity.y * deltaTime * PROJECTILE_SPEED;
 
-
     UpdateSprites(deltaTime);
 
     // Deactivate if out of bounds
     if (Helper::IsOutsideScreen(position))
     {
-       Deactivate();
+        DeactivateProjectile();
     }
 }
 
@@ -53,13 +54,21 @@ void Projectile::Draw() const
     Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * PROJECTILE_SPRITE_SCALE, static_cast<float>(frameHeight) * PROJECTILE_SPRITE_SCALE};
     Vector2 origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameHeight) / 2};
 
-    DrawTexturePro(spriteSheet, sourceRect, destRect, origin, rotation + 90, WHITE);
+    DrawTexturePro(texture, sourceRect, destRect, origin, rotation + 90, WHITE);
 }
 
-bool Projectile::CheckCollision(Rectangle target) const
+void Projectile::OnTriggerEnter2D(Gameobject *other)
 {
-    Rectangle projectileRect = {position.x - static_cast<float>(frameWidth) / 2, position.y - static_cast<float>(frameHeight) / 2, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
-    return CheckCollisionRecs(projectileRect, target);
+    Gameobject::OnTriggerEnter2D(other);
+
+    if (other->GetTag() != GameobjectsEnum::Asteroid) return;
+
+    if (Asteroid* asteroid = dynamic_cast<Asteroid*>(other))
+    {
+        asteroid->TakeDamage(PROJECTILE_DAMAGE);
+
+        DeactivateProjectile();
+    }
 }
 
 void Projectile::UpdateSprites(float deltaTime)
@@ -71,4 +80,10 @@ void Projectile::UpdateSprites(float deltaTime)
         currentFrame = (currentFrame + 1) % 3;
         elapsedTime = 0.0f;
     }
+}
+
+void Projectile::DeactivateProjectile()
+{
+    Deactivate();
+    CollisionManager::GetInstance().RemoveObject(this);
 }

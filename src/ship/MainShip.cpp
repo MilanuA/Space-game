@@ -12,14 +12,15 @@ void MainShip::UpdatePosition(Vector2 mousePosition)
 {
     shipPosition.x += (mousePosition.x - shipPosition.x) / dragSpeed;
     shipPosition.y += (mousePosition.y - shipPosition.y) / dragSpeed;
+
+    const float x = static_cast<float>(GetMouseX()) - shipPosition.x;
+    const float y = static_cast<float>(GetMouseY()) - shipPosition.y;
+    rotation = std::atan2(y, x) * RAD2DEG;
 }
 
 void MainShip::DrawShip() const
 {
 
-    const float x = static_cast<float>(GetMouseX()) - shipPosition.x;
-    const float y = static_cast<float>(GetMouseY()) - shipPosition.y;
-    const float rotation = std::atan2(y, x) * RAD2DEG;
 
     Rectangle sourceRec = {0, 0, static_cast<float>(shipTexture.width), static_cast<float>(shipTexture.height)};
     Rectangle destRec = {shipPosition.x, shipPosition.y, static_cast<float>(shipTexture.width) * SHIP_SPRITE_SCALE, static_cast<float>(shipTexture.height) * SHIP_SPRITE_SCALE};

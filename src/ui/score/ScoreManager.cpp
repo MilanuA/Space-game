@@ -10,7 +10,7 @@ void ScoreManager::UpdateScorePerSecond()
 
     if (elapsedTime < 1.0f) return;
 
-    currentScore += scorePerSecond;
+    UpdateScore(SCORE_PER_SECOND);
     elapsedTime = 0.0f;
 }
 

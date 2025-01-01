@@ -4,10 +4,16 @@
 #include <raymath.h>
 
 
-ObjectsSpawner::ObjectsSpawner(): projectilePool(INITIAL_PROJECTILE_POOL_SIZE), asteroidPool(INITIAL_PROJECTILE_POOL_SIZE)
+ObjectsSpawner::ObjectsSpawner(ScoreManager &scoreManager): projectilePool(INITIAL_PROJECTILE_POOL_SIZE),
+                                  asteroidPool(INITIAL_PROJECTILE_POOL_SIZE), scoreManager(scoreManager)
 {
     std::random_device rd;
     randomEngine = std::mt19937(rd());
+}
+
+void ObjectsSpawner::Init(ScoreManager &scoreManager) const
+{
+    this->scoreManager = scoreManager;
 }
 
 void ObjectsSpawner::Draw() const
@@ -85,8 +91,6 @@ void ObjectsSpawner::SpawnAsteroid()
                 break;
         }
 
-        asteroid->Init(spawnPosition);
-        asteroid->SetDirection(Vector2Normalize(direction));
-        asteroid->Activate();
+        asteroid->Init(spawnPosition, Vector2Normalize(direction), scoreManager);
     }
 }
