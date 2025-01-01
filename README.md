@@ -1,6 +1,6 @@
-# Space Minigame
+# Space game
 
-This project is a simple space-themed minigame built using C++ and the Raylib library. It features basic game mechanics such as player-controlled ships, projectiles, and asteroids.
+This project is a simple space-themed game built using C++ and the Raylib library. It features basic game mechanics such as player-controlled ships, projectiles, and asteroids.
 
 **Disclaimer:** This project is still in development and it is made for educational purposes only.
 ## Features
