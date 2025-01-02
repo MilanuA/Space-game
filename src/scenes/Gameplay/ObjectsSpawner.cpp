@@ -3,9 +3,11 @@
 #include <iostream>
 #include <raymath.h>
 
+#include "../../debug/DebugGame.h"
+
 
 ObjectsSpawner::ObjectsSpawner(ScoreManager &scoreManager): projectilePool(INITIAL_PROJECTILE_POOL_SIZE),
-                                  asteroidPool(INITIAL_PROJECTILE_POOL_SIZE), scoreManager(scoreManager)
+                                                            asteroidPool(INITIAL_PROJECTILE_POOL_SIZE), scoreManager(scoreManager)
 {
     std::random_device rd;
     randomEngine = std::mt19937(rd());
@@ -20,6 +22,9 @@ void ObjectsSpawner::Draw() const
 {
     projectilePool.DrawAllObjects();
     asteroidPool.DrawAllObjects();
+
+    if (DebugGame::GetInstance().IsDebugEnabled())
+        ShowPooledObjectsCount();
 }
 
 void ObjectsSpawner::Update(float deltaTime)
@@ -93,4 +98,16 @@ void ObjectsSpawner::SpawnAsteroid()
 
         asteroid->Init(spawnPosition, Vector2Normalize(direction), scoreManager);
     }
+}
+
+void ObjectsSpawner::ShowPooledObjectsCount() const
+{
+    const int fontSize = 30;
+    const int padding = 10;
+    const int startX = 10;
+    int startY = 150;
+
+    DrawText(TextFormat("Projectiles: %d", projectilePool.GetActiveObjectCount()), startX, startY, fontSize, WHITE);
+    startY += fontSize + padding;
+    DrawText(TextFormat("Asteroids: %d", asteroidPool.GetActiveObjectCount()), startX, startY, fontSize, WHITE);
 }

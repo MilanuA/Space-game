@@ -25,6 +25,7 @@ class ObjectsSpawner
 
     ScoreManager &scoreManager;
 
+    void ShowPooledObjectsCount() const;
 public:
 
     ObjectsSpawner(ScoreManager &scoreManager);
