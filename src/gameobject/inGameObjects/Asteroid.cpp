@@ -3,21 +3,23 @@
 #include <raymath.h>
 #include "../../Helper.h"
 #include "../../debug/DebugGame.h"
+#include "../collisionManager/CollisionManager.h"
 
-Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH)
+Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH), scoreManager(nullptr)
 {
     texture = LoadTexture("../resources/obstacles/asteroid.png");
     frameWidth = texture.width * ASTEROID_SPRITE_SCALE;
     frameHeight = texture.height * ASTEROID_SPRITE_SCALE;
 }
 
-void Asteroid::Init(Vector2 startPos, Vector2 direction, const ScoreManager &scoreManager)
+void Asteroid::Init(Vector2 startPos, Vector2 direction,  ScoreManager &scoreManager)
 {
     this->direction = direction;
     position = startPos;
     currentHealth = MAX_ASTEROID_HEALTH;
     rotation = 0.0f;
 
+    this->scoreManager = &scoreManager;
     Activate();
     CollisionManager::GetInstance().AddObject(this);
 }
@@ -32,7 +34,7 @@ void Asteroid::Update(float deltaTime)
 
     if (Helper::IsOutsideScreen(position, SCREEN_BUFFER))
     {
-        Death();
+        DeactiveAsteroid();
     }
 }
 
@@ -69,15 +71,15 @@ void Asteroid::Draw() const
     }
 }
 
-
-
 void Asteroid::TakeDamage(int damage)
 {
+    if (!isActive) return;
+
     currentHealth -= damage;
 
     if (currentHealth > 0) return;
 
-    DeactiveAsteroid();
+    Death();
 }
 
 void Asteroid::Heal(int amount)
@@ -89,7 +91,11 @@ void Asteroid::Heal(int amount)
 
 void Asteroid::Death()
 {
+    if (!isActive) return;
+
+    scoreManager->UpdateScore(ASTEROID_DEATH_XP);
     DeactiveAsteroid();
+
 }
 
 Rectangle Asteroid::GetBoundingBox() const

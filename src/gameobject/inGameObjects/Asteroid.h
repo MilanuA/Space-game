@@ -10,6 +10,8 @@ constexpr int MAX_ASTEROID_HEALTH = 20;
 constexpr int ASTEROID_SPEED = 200;
 constexpr float SCREEN_BUFFER = 20.0f;
 constexpr float ASTEROID_SPRITE_SCALE = 2.0f;
+constexpr float ASTEROID_DEATH_XP = 50;
+
 
 class Asteroid : public Gameobject, public PoolableObject, public IHealth
 {
@@ -19,11 +21,11 @@ class Asteroid : public Gameobject, public PoolableObject, public IHealth
     void AsteroidExplosion();
     void DeactiveAsteroid();
 
+    ScoreManager *scoreManager{};
 public:
     Asteroid();
 
-
-    void Init(Vector2 startPos, Vector2 direction, const ScoreManager &scoreManager);
+    void Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager);
 
     void Update(float deltaTime) override;
     void Draw() const override;
