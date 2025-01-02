@@ -56,6 +56,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/gameobject/collisionManager/CollisionManager.cpp
         src/gameobject/collisionManager/CollisionManager.h
         src/gameobject/GameobjectsEnum.h
+        src/debug/DebugGame.cpp
+        src/debug/DebugGame.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

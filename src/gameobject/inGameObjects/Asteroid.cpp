@@ -2,12 +2,13 @@
 #include <iostream>
 #include <raymath.h>
 #include "../../Helper.h"
+#include "../../debug/DebugGame.h"
 
 Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH)
 {
     texture = LoadTexture("../resources/obstacles/asteroid.png");
-    frameWidth = texture.width;
-    frameHeight = texture.height;
+    frameWidth = texture.width * ASTEROID_SPRITE_SCALE;
+    frameHeight = texture.height * ASTEROID_SPRITE_SCALE;
 }
 
 void Asteroid::Init(Vector2 startPos, Vector2 direction, const ScoreManager &scoreManager)
@@ -39,16 +40,39 @@ void Asteroid::Draw() const
 {
     if (!isActive) return;
 
-    Rectangle sourceRec = {0, 0, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
-    Rectangle destRec = {position.x, position.y, frameWidth * ASTEROID_SPRITE_SCALE, frameHeight * ASTEROID_SPRITE_SCALE};
-    Vector2 origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameWidth) / 2};
+    Rectangle sourceRec = {0.0f, 0.0f, static_cast<float>(texture.width), static_cast<float>(texture.height)};
+
+    Rectangle destRec = {
+        position.x,
+        position.y,
+        static_cast<float>(frameWidth),
+        static_cast<float>(frameHeight)
+    };
+
+    Vector2 origin = {
+        static_cast<float>(frameWidth) / 2.0f,
+        static_cast<float>(frameHeight) / 2.0f
+    };
 
     DrawTexturePro(texture, sourceRec, destRec, origin, rotation, WHITE);
+
+    if (DebugGame::GetInstance().IsDebugEnabled())
+    {
+        Rectangle boundingBox = GetBoundingBox();
+        DrawRectangleLines(
+            static_cast<int>(boundingBox.x),
+            static_cast<int>(boundingBox.y),
+            static_cast<int>(boundingBox.width),
+            static_cast<int>(boundingBox.height),
+            GREEN
+        );
+    }
 }
+
+
 
 void Asteroid::TakeDamage(int damage)
 {
-    std::cout << "Asteroid at position: " << position.x << ", " << position.y << " took " << damage << " damage" << std::endl;
     currentHealth -= damage;
 
     if (currentHealth > 0) return;
@@ -68,6 +92,21 @@ void Asteroid::Death()
     DeactiveAsteroid();
 }
 
+Rectangle Asteroid::GetBoundingBox() const
+{
+    if (!isActive) return {0, 0, 0, 0};
+
+    float scaledWidth = frameWidth / 3;
+    float scaledHeight = frameHeight / 3;
+
+    return {
+        position.x - scaledWidth / 2,
+        position.y - scaledHeight / 2,
+        scaledWidth,
+        scaledHeight
+    };
+}
+
 void Asteroid::AsteroidExplosion()
 {
     //TODO: Implement explosion
@@ -81,4 +120,9 @@ void Asteroid::DeactiveAsteroid()
 
 Asteroid::~Asteroid()
 {
+}
+
+void Asteroid::OnTriggerEnter2D(Gameobject *other)
+{
+    Gameobject::OnTriggerEnter2D(other);
 }

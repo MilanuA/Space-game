@@ -4,10 +4,11 @@
 #include <raymath.h>
 
 #include "../Helper.h"
+#include "../debug/DebugGame.h"
 #include "../gameobject/inGameObjects/Asteroid.h"
 class Asteroid;
 
-Projectile::Projectile(): Gameobject(GameobjectsEnum::Projectile)
+Projectile::Projectile() : Gameobject(GameobjectsEnum::Projectile)
 {
     texture = LoadTexture("../resources/ships/projectiles/projectiles.png");
     frameWidth = texture.width / 3;
@@ -44,6 +45,9 @@ void Projectile::Update(float deltaTime)
     {
         DeactivateProjectile();
     }
+
+    if (DebugGame::GetInstance().IsDebugEnabled())
+        DrawCollisionBox();
 }
 
 void Projectile::Draw() const
@@ -69,6 +73,20 @@ void Projectile::OnTriggerEnter2D(Gameobject *other)
 
         DeactivateProjectile();
     }
+}
+
+// TODO: Redo this, cuz it still doesn't fit the sprite
+Rectangle Projectile::GetBoundingBox() const
+{
+    float scaledWidth = frameWidth * PROJECTILE_SPRITE_SCALE;
+    float scaledHeight = frameHeight * PROJECTILE_SPRITE_SCALE;
+
+    return {
+        position.x - scaledWidth / 2,
+        position.y - scaledHeight / 2,
+        scaledWidth,
+        scaledHeight
+    };
 }
 
 void Projectile::UpdateSprites(float deltaTime)

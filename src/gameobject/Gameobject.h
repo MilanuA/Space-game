@@ -19,12 +19,14 @@ public:
     Gameobject(const GameobjectsEnum tag) : tag(tag) {}
     virtual ~Gameobject() = default;
 
-    [[nodiscard]] virtual Rectangle GetBoundingBox() const;
+    virtual Rectangle GetBoundingBox() const { return {0, 0, 0, 0}; }
 
     virtual void Update(float deltaTime) {}
     virtual void Draw() const {}
+    virtual void OnTriggerEnter2D(Gameobject* other) {}
 
-    virtual void OnTriggerEnter2D(Gameobject* other) {};
+    void DrawCollisionBox() const;
+
     [[nodiscard]] Vector2 GetPosition() const { return position; }
     [[nodiscard]] GameobjectsEnum GetTag() const { return tag; }
 };

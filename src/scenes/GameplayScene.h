@@ -13,6 +13,8 @@ class GameplayScene : public Scene
     MainShip mainShip;
     Music music;
 
+    void ShowFPS();
+
 public:
     GameplayScene();
     void Init() override;

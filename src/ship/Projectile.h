@@ -31,6 +31,8 @@ public:
     void Draw() const override;
 
     void OnTriggerEnter2D(Gameobject *other) override;
+
+    Rectangle GetBoundingBox() const override;
 };
 
 

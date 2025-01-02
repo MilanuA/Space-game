@@ -1,5 +1,5 @@
 #include "GameplayScene.h"
-
+#include "../debug/DebugGame.h"
 
 GameplayScene::GameplayScene() : objectsSpawner(scoreManager),  music()
 {
@@ -28,22 +28,41 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
         objectsSpawner.SpawnProjectile(mousePosition, mainShip);
     }
 
+    if (IsKeyPressed(KEY_F2))
+    {
+        DebugGame& debugGame = DebugGame::GetInstance();
+
+        if (debugGame.IsDebugEnabled())
+        {
+            debugGame.DisableDebug();
+        }
+        else
+        {
+            debugGame.EnableDebug();
+        }
+    }
+
     objectsSpawner.Update(GetFrameTime());
 }
 
 void GameplayScene::Draw()
 {
-    ClearBackground(Color(16,16,73, 255));
+    ClearBackground({ 16, 16, 73, 255 });
 
     scoreManager.Draw();
     mainShip.DrawShip();
     objectsSpawner.Draw();
+
+    if (DebugGame::GetInstance().IsDebugEnabled())
+    {
+        DebugGame::GetInstance().ShowDebugInfo();
+    }
 }
+
 void GameplayScene::Unload()
 {
     UnloadMusicStream(music);
 }
-
 
 GameplayScene::~GameplayScene()
 {
