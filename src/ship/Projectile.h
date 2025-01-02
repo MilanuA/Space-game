@@ -33,6 +33,8 @@ public:
     void OnTriggerEnter2D(Gameobject *other) override;
 
     Rectangle GetBoundingBox() const override;
+
+    void Destroy() override;
 };
 
 

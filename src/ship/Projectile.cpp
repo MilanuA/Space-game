@@ -105,3 +105,8 @@ void Projectile::DeactivateProjectile()
     Deactivate();
     CollisionManager::GetInstance().RemoveObject(this);
 }
+
+void Projectile::Destroy()
+{
+    DeactivateProjectile();
+}

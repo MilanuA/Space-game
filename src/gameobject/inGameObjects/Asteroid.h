@@ -38,6 +38,8 @@ public:
     Rectangle GetBoundingBox() const override;
 
     ~Asteroid() override;
+
+    void Destroy() override;
 };
 
 

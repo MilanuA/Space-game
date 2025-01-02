@@ -128,7 +128,17 @@ Asteroid::~Asteroid()
 {
 }
 
+void Asteroid::Destroy()
+{
+    DeactiveAsteroid();
+}
+
 void Asteroid::OnTriggerEnter2D(Gameobject *other)
 {
-    Gameobject::OnTriggerEnter2D(other);
+   if (other->GetTag() == GameobjectsEnum::Asteroid)
+   {
+       AsteroidExplosion();
+
+       other->Destroy();
+   }
 }

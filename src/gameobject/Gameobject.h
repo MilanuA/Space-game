@@ -23,6 +23,7 @@ public:
 
     virtual void Update(float deltaTime) {}
     virtual void Draw() const {}
+    virtual void Destroy() {}
     virtual void OnTriggerEnter2D(Gameobject* other) {}
 
     void DrawCollisionBox() const;
