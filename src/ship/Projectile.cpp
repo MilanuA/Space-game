@@ -56,7 +56,7 @@ void Projectile::Draw() const
 
     Rectangle sourceRect = {static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
     Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * PROJECTILE_SPRITE_SCALE, static_cast<float>(frameHeight) * PROJECTILE_SPRITE_SCALE};
-    Vector2 origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameHeight) / 2};
+    Vector2 origin = {static_cast<float>(frameWidth) * PROJECTILE_SPRITE_SCALE / 2, static_cast<float>(frameHeight) * PROJECTILE_SPRITE_SCALE / 2};
 
     DrawTexturePro(texture, sourceRect, destRect, origin, rotation + 90, WHITE);
 }
@@ -75,11 +75,10 @@ void Projectile::OnTriggerEnter2D(Gameobject *other)
     }
 }
 
-// TODO: Redo this, cuz it still doesn't fit the sprite
 Rectangle Projectile::GetBoundingBox() const
 {
-    float scaledWidth = frameWidth * PROJECTILE_SPRITE_SCALE;
-    float scaledHeight = frameHeight * PROJECTILE_SPRITE_SCALE;
+    float scaledWidth = frameWidth ;
+    float scaledHeight = frameHeight ;
 
     return {
         position.x - scaledWidth / 2,
