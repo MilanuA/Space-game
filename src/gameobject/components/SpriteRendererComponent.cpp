@@ -1,12 +1,17 @@
 #include "SpriteRendererComponent.h"
+#include "TransformComponent.h"
 
-void SpriteRendererComponent::SetTexture(const Texture2D &tex, int width, int height)
+
+void SpriteRendererComponent::SetTexture(const Texture2D &tex, int width, int height, int frameCount)
 {
-    texture = tex;
-    frameWidth = width;
-    frameHeight = height;
+    this->frameCount = frameCount;
+    const Vector2& scale = owner.GetTransform().GetScale();
 
-    origin = {static_cast<float>(frameWidth) / 2, static_cast<float>(frameHeight) / 2};
+    texture = tex;
+    frameWidth = (width / frameCount) * scale.x;
+    frameHeight = height * scale.y;
+
+    origin = {static_cast<float>(frameWidth) * scale.x / 2, static_cast<float>(frameHeight) * scale.y / 2};
 }
 
 void SpriteRendererComponent::UpdateSprites(float deltaTime, int frameCount)
@@ -22,10 +27,21 @@ void SpriteRendererComponent::UpdateSprites(float deltaTime, int frameCount)
     currentFrame = (currentFrame + 1) % frameCount;
 }
 
-void SpriteRendererComponent::Draw(Vector2 position)
+void SpriteRendererComponent::Update(float deltaTime)
 {
-    Rectangle sourceRec = {0.0f, 0.0f, static_cast<float>(texture.width), static_cast<float>(texture.height)};
-    Rectangle destRect = {position.x, position.y, (float)frameWidth, (float)frameHeight};
+    Component::Update(deltaTime);
 
-    DrawTexturePro(texture, sourceRec, destRect, origin, 0.0f, WHITE);
+    UpdateSprites(deltaTime, frameCount);
+}
+
+void SpriteRendererComponent::Draw()
+{
+    const TransformComponent &transform = owner.GetTransform();
+
+    auto position = transform.GetPosition();
+
+    Rectangle sourceRec = {0.0f, 0.0f, static_cast<float>(texture.width), static_cast<float>(texture.height)};
+    Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
+
+    DrawTexturePro(texture, sourceRec, destRect, origin, transform.GetRotation(), WHITE);
 }

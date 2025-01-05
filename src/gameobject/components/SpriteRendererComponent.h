@@ -3,8 +3,10 @@
 #define SPRITERENDERERCOMPONENT_H
 #include <raylib.h>
 
+#include "Component.h"
 
-class SpriteRendererComponent
+
+class SpriteRendererComponent : public Component
 {
     Texture2D texture = { };
 
@@ -13,16 +15,22 @@ class SpriteRendererComponent
     int frameWidth = 0;
     int frameHeight = 0;
     int currentFrame = 0;
+    int frameCount = 1;
 
     float frameTime = 0.1f;
     float elapsedTime = 0.0f;
 
-public:
-    void SetTexture(const Texture2D& tex, int width, int height);
     void UpdateSprites(float deltaTime, int frameCount);
-    void Draw(Vector2 position);
+
+public:
+    explicit SpriteRendererComponent(Gameobject &owner) : Component(owner) {}
+
+    void SetTexture(const Texture2D& tex, int width, int height, int frameCount = 1);
 
     [[nodiscard]] Vector2 const &GetOrigin() const { return origin; }
+
+    void Update(float deltaTime) override;
+    void Draw() override;
 };
 
 

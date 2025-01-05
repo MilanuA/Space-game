@@ -2,12 +2,14 @@
 #define COLLIDERCOMPONENT_H
 #include <raylib.h>
 
+#include "Component.h"
 
-class ColliderComponent
+
+class ColliderComponent : public Component
 {
     Rectangle boundingBox;
 public:
-    explicit ColliderComponent(const Rectangle& box) : boundingBox(box) {}
+    explicit ColliderComponent(const Rectangle& box, Gameobject& owner) : Component(owner), boundingBox(box) {}
 
     [[nodiscard]] const Rectangle& GetBoundingBox() const { return boundingBox; }
 
