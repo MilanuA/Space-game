@@ -1,5 +1,6 @@
 #include "GameplayScene.h"
 #include "../debug/DebugGame.h"
+#include "../gameobject/collisionManager/CollisionManager.h"
 
 GameplayScene::GameplayScene() : objectsSpawner(scoreManager),  music()
 {

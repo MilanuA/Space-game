@@ -36,17 +36,16 @@ add_executable(${PROJECT_NAME} main.cpp
         src/scenes/MainMenuScene.h
         src/scenes/GameplayScene.cpp
         src/scenes/GameplayScene.h
-        src/ship/MainShip.cpp
-        src/ship/MainShip.h
+        src/objects/ship/MainShip.cpp
+        src/objects/ship/MainShip.h
         src/ui/score/ScoreManager.cpp
         src/ui/score/ScoreManager.h
-        src/ship/Projectile.cpp
-        src/ship/Projectile.h
-        src/objectPooling/PoolableObject.cpp
+        src/objects/projectile/Projectile.cpp
+        src/objects/projectile/Projectile.h
         src/objectPooling/PoolableObject.h
         src/objectPooling/ObjectPool.h
-        src/gameobject/inGameObjects/Asteroid.cpp
-        src/gameobject/inGameObjects/Asteroid.h
+        src/objects/asteroid/Asteroid.cpp
+        src/objects/asteroid/Asteroid.h
         src/health/IHealth.h
         src/scenes/Gameplay/ObjectsSpawner.cpp
         src/scenes/Gameplay/ObjectsSpawner.h
@@ -58,6 +57,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/gameobject/GameobjectsEnum.h
         src/debug/DebugGame.cpp
         src/debug/DebugGame.h
+        src/animation/Animation.cpp
+        src/animation/Animation.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

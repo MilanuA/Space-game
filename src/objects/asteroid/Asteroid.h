@@ -1,7 +1,7 @@
 #ifndef ASTEROID_H
 #define ASTEROID_H
 #include <raylib.h>
-#include "../Gameobject.h"
+#include "../../gameobject/Gameobject.h"
 #include "../../health/IHealth.h"
 #include "../../objectPooling/PoolableObject.h"
 #include "../../ui/score/ScoreManager.h"

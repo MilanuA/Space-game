@@ -2,10 +2,10 @@
 #define OBJECTSSPAWNER_H
 
 #include <random>
-#include "../../gameobject/inGameObjects/Asteroid.h"
 #include "../../objectPooling/ObjectPool.h"
-#include "../../ship/MainShip.h"
-#include "../../ship/Projectile.h"
+#include "../../objects/asteroid/Asteroid.h"
+#include "../../objects/projectile/Projectile.h"
+#include "../../objects/ship/MainShip.h"
 #include "../../ui/score/ScoreManager.h"
 
 constexpr size_t INITIAL_PROJECTILE_POOL_SIZE = 20;

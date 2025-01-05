@@ -1,6 +1,6 @@
 #ifndef COLLISIONMANAGER_H
 #define COLLISIONMANAGER_H
-#include <memory>
+
 #include <vector>
 #include "../Gameobject.h"
 

@@ -1,11 +1,12 @@
 #include "Projectile.h"
 #include <cmath>
-#include <iostream>
+
 #include <raymath.h>
 
-#include "../Helper.h"
-#include "../debug/DebugGame.h"
-#include "../gameobject/inGameObjects/Asteroid.h"
+#include "../asteroid/Asteroid.h"
+#include "../../Helper.h"
+#include "../../debug/DebugGame.h"
+#include "../../gameobject/collisionManager/CollisionManager.h"
 class Asteroid;
 
 Projectile::Projectile() : Gameobject(GameobjectsEnum::Projectile)
@@ -38,7 +39,7 @@ void Projectile::Update(float deltaTime)
     position.x += velocity.x * deltaTime * PROJECTILE_SPEED;
     position.y += velocity.y * deltaTime * PROJECTILE_SPEED;
 
-    UpdateSprites(deltaTime);
+    UpdateSprites(deltaTime, 3);
 
     // Deactivate if out of bounds
     if (Helper::IsOutsideScreen(position))
@@ -88,16 +89,6 @@ Rectangle Projectile::GetBoundingBox() const
     };
 }
 
-void Projectile::UpdateSprites(float deltaTime)
-{
-    elapsedTime += deltaTime;
-
-    if (elapsedTime >= frameTime)
-    {
-        currentFrame = (currentFrame + 1) % 3;
-        elapsedTime = 0.0f;
-    }
-}
 
 void Projectile::DeactivateProjectile()
 {

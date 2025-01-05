@@ -1,9 +1,9 @@
 #include "Asteroid.h"
-#include <iostream>
 #include <raymath.h>
 #include "../../Helper.h"
 #include "../../debug/DebugGame.h"
-#include "../collisionManager/CollisionManager.h"
+#include "../../gameobject/collisionManager/CollisionManager.h"
+
 
 Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH), scoreManager(nullptr)
 {
@@ -61,6 +61,7 @@ void Asteroid::Draw() const
     if (DebugGame::GetInstance().IsDebugEnabled())
     {
         Rectangle boundingBox = GetBoundingBox();
+
         DrawRectangleLines(
             static_cast<int>(boundingBox.x),
             static_cast<int>(boundingBox.y),
@@ -125,8 +126,7 @@ void Asteroid::DeactiveAsteroid()
 }
 
 Asteroid::~Asteroid()
-{
-}
+= default;
 
 void Asteroid::Destroy()
 {

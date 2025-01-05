@@ -1,4 +1,3 @@
-
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include <raylib.h>
@@ -13,7 +12,14 @@ protected:
     Texture2D texture = {};
     int frameWidth = 0;
     int frameHeight = 0;
+
+    int currentFrame = 0;
     GameobjectsEnum tag = GameobjectsEnum::NONE;
+
+    float frameTime = 0.1f;
+    float elapsedTime = 0.0f;
+
+    void UpdateSprites(float deltaTime, int frameCount);
 
 public:
     Gameobject(const GameobjectsEnum tag) : tag(tag) {}

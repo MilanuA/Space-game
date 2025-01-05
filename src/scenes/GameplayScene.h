@@ -2,7 +2,7 @@
 #define GAMEPLAY_H
 
 #include "Scene.h"
-#include "../ship/MainShip.h"
+#include "../objects/ship/MainShip.h"
 #include "../ui/score/ScoreManager.h"
 #include "Gameplay/ObjectsSpawner.h"
 

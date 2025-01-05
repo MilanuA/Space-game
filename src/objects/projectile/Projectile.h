@@ -2,8 +2,8 @@
 #define PROJECTILE_H
 #include <raylib.h>
 
-#include "../gameobject/Gameobject.h"
-#include "../objectPooling/PoolableObject.h"
+#include "../../gameobject/Gameobject.h"
+#include "../../objectPooling/PoolableObject.h"
 
 constexpr int PROJECTILE_SPRITE_SCALE = 2.0f;
 constexpr float PROJECTILE_SPEED = 350.0f;
@@ -12,14 +12,8 @@ constexpr float PROJECTILE_DAMAGE = 10.0f;
 class Projectile : public Gameobject, public PoolableObject
 {
     Vector2 velocity = {0.0f, 0.0f};
-
-    int currentFrame = 0;
-
     float rotation = 0.0f;
-    float frameTime = 0.1f;
-    float elapsedTime = 0.0f;
 
-    void UpdateSprites(float deltaTime);
     void DeactivateProjectile();
 public:
     Projectile();
