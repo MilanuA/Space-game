@@ -9,6 +9,7 @@ GameplayScene::GameplayScene() : objectsSpawner(scoreManager),  music()
 
 void GameplayScene::Init()
 {
+
     mainShip.Init();
 
     music = LoadMusicStream("../resources/audio/spaceMusic.mp3");
