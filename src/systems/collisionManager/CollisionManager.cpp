@@ -1,5 +1,7 @@
 #include "CollisionManager.h"
 
+#include "../../gameobject/components/ColliderComponent.h"
+
 
 // even though this Brute force collision detection is not efficient
 // (we are probably talking about O(n^2) complexity)
@@ -9,11 +11,11 @@ void CollisionManager::CheckCollisions() const
 
     for (size_t i = 0; i < objects.size(); ++i)
     {
-        Rectangle const currentRect = objects[i]->GetBoundingBox();
+        Rectangle const currentRect = objects[i]->GetComponent<ColliderComponent>()->GetBoundingBox();
 
         for (size_t j = i + 1; j < objects.size(); ++j)
         {
-            if (CheckCollisionRecs(currentRect, objects[j]->GetBoundingBox()))
+            if (CheckCollisionRecs(currentRect, objects[j]->GetComponent<ColliderComponent>()->GetBoundingBox()))
             {
                 objects[i]->OnTriggerEnter2D(objects[j]);
                 objects[j]->OnTriggerEnter2D(objects[i]);

@@ -28,6 +28,8 @@ public:
     void SetTexture(const Texture2D& tex, int frameCount = 1);
 
     [[nodiscard]] Vector2 const &GetOrigin() const { return origin; }
+    [[nodiscard]] int GetWidth() const { return frameWidth; }
+    [[nodiscard]] int GetHeight() const { return frameHeight; }
 
     void Update(float deltaTime) override;
     void Draw() override;
