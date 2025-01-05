@@ -3,7 +3,7 @@
 #include <iostream>
 #include <raymath.h>
 
-#include "../../debug/DebugGame.h"
+#include "../debug/DebugGame.h"
 
 
 ObjectsSpawner::ObjectsSpawner(ScoreManager &scoreManager): projectilePool(INITIAL_PROJECTILE_POOL_SIZE),

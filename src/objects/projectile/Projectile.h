@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 #include "../../gameobject/Gameobject.h"
-#include "../../objectPooling/PoolableObject.h"
+#include "../../systems/objectPooling/PoolableObject.h"
 
 constexpr int PROJECTILE_SPRITE_SCALE = 2.0f;
 constexpr float PROJECTILE_SPEED = 350.0f;

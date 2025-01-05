@@ -2,7 +2,9 @@
 #define COLLISIONMANAGER_H
 
 #include <vector>
-#include "../Gameobject.h"
+
+#include "../../gameobject/Gameobject.h"
+
 
 class CollisionManager
 {

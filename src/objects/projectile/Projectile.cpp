@@ -2,11 +2,10 @@
 #include <cmath>
 
 #include <raymath.h>
-
 #include "../asteroid/Asteroid.h"
 #include "../../Helper.h"
-#include "../../debug/DebugGame.h"
-#include "../../gameobject/collisionManager/CollisionManager.h"
+#include "../../systems/collisionManager/CollisionManager.h"
+#include "../../systems/debug/DebugGame.h"
 class Asteroid;
 
 Projectile::Projectile() : Gameobject(GameobjectsEnum::Projectile)

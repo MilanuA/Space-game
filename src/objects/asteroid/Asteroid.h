@@ -2,8 +2,8 @@
 #define ASTEROID_H
 #include <raylib.h>
 #include "../../gameobject/Gameobject.h"
-#include "../../health/IHealth.h"
-#include "../../objectPooling/PoolableObject.h"
+#include "../../systems/health/IHealth.h"
+#include "../../systems/objectPooling/PoolableObject.h"
 #include "../../ui/score/ScoreManager.h"
 
 constexpr int MAX_ASTEROID_HEALTH = 20;

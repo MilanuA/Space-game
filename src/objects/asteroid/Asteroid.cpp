@@ -1,8 +1,8 @@
 #include "Asteroid.h"
 #include <raymath.h>
 #include "../../Helper.h"
-#include "../../debug/DebugGame.h"
-#include "../../gameobject/collisionManager/CollisionManager.h"
+#include "../../systems/collisionManager/CollisionManager.h"
+#include "../../systems/debug/DebugGame.h"
 
 
 Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH), scoreManager(nullptr)

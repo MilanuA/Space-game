@@ -2,11 +2,11 @@
 #define OBJECTSSPAWNER_H
 
 #include <random>
-#include "../../objectPooling/ObjectPool.h"
 #include "../../objects/asteroid/Asteroid.h"
 #include "../../objects/projectile/Projectile.h"
 #include "../../objects/ship/MainShip.h"
 #include "../../ui/score/ScoreManager.h"
+#include "../objectPooling/ObjectPool.h"
 
 constexpr size_t INITIAL_PROJECTILE_POOL_SIZE = 20;
 constexpr size_t INITIAL_ASTEROID_POOL_SIZE = 25;

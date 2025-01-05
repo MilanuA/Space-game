@@ -42,23 +42,23 @@ add_executable(${PROJECT_NAME} main.cpp
         src/ui/score/ScoreManager.h
         src/objects/projectile/Projectile.cpp
         src/objects/projectile/Projectile.h
-        src/objectPooling/PoolableObject.h
-        src/objectPooling/ObjectPool.h
+        src/systems/objectPooling/PoolableObject.h
+        src/systems/objectPooling/ObjectPool.h
         src/objects/asteroid/Asteroid.cpp
         src/objects/asteroid/Asteroid.h
-        src/health/IHealth.h
-        src/scenes/Gameplay/ObjectsSpawner.cpp
-        src/scenes/Gameplay/ObjectsSpawner.h
+        src/systems/health/IHealth.h
+        src/systems/objectsSpawner/ObjectsSpawner.cpp
+        src/systems/objectsSpawner/ObjectsSpawner.h
         src/Helper.h
         src/gameobject/Gameobject.cpp
         src/gameobject/Gameobject.h
-        src/gameobject/collisionManager/CollisionManager.cpp
-        src/gameobject/collisionManager/CollisionManager.h
+        src/systems/collisionManager/CollisionManager.cpp
+        src/systems/collisionManager/CollisionManager.h
         src/gameobject/GameobjectsEnum.h
-        src/debug/DebugGame.cpp
-        src/debug/DebugGame.h
-        src/animation/Animation.cpp
-        src/animation/Animation.h
+        src/systems/debug/DebugGame.cpp
+        src/systems/debug/DebugGame.h
+        src/systems/animation/Animation.cpp
+        src/systems/animation/Animation.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

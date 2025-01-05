@@ -3,8 +3,8 @@
 
 #include "Scene.h"
 #include "../objects/ship/MainShip.h"
+#include "../systems/objectsSpawner/ObjectsSpawner.h"
 #include "../ui/score/ScoreManager.h"
-#include "Gameplay/ObjectsSpawner.h"
 
 class GameplayScene : public Scene
 {
