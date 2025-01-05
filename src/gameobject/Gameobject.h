@@ -20,6 +20,36 @@ public:
 
     TransformComponent& GetTransform() { return transform; }
     const TransformComponent& GetTransform() const { return transform; }
+
+    GameobjectsEnum GetTag() const { return tag; }
+
+    template <typename T, typename... Args>
+    T& AddComponent(Args&&... args)
+    {
+        static_assert(std::is_base_of<Component, T>::value, "T must inherit from Component");
+        components.emplace_back(std::make_unique<T>(*this, std::forward<Args>(args)...));
+        return *dynamic_cast<T*>(components.back().get());
+    }
+
+    template <typename T>
+    T* GetComponent()
+    {
+        for (auto& comp : components)
+        {
+            if (T* t = dynamic_cast<T*>(comp.get()))
+            {
+                return t;
+            }
+        }
+
+        return nullptr;
+    }
+
+    virtual void Update(float deltaTime);
+    virtual void Destroy() {}
+    virtual void OnTriggerEnter2D(Gameobject *other) {}
+
+    virtual void Draw() const;
 };
 
 

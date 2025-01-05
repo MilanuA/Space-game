@@ -7,15 +7,19 @@
 
 class ColliderComponent : public Component
 {
-    Rectangle boundingBox;
+    Rectangle boundingBox = {0.0f, 0.0f, 0.0f, 0.0f};
+
 public:
-    explicit ColliderComponent(const Rectangle& box, Gameobject& owner) : Component(owner), boundingBox(box) {}
+    explicit ColliderComponent( Gameobject& owner) : Component(owner) {}
 
     [[nodiscard]] const Rectangle& GetBoundingBox() const { return boundingBox; }
 
-    [[nodiscard]] bool CheckCollision(const ColliderComponent& other) const {
+    [[nodiscard]] bool CheckCollision(const ColliderComponent& other) const
+    {
         return CheckCollisionRecs(boundingBox, other.boundingBox);
     }
+
+    void DrawCollisionBox() const;
 };
 
 

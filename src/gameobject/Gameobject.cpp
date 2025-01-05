@@ -1,18 +1,18 @@
 #include "Gameobject.h"
 
-void Gameobject::DrawCollisionBox() const
+
+void Gameobject::Update(float deltaTime)
 {
-    Rectangle boundingBox = GetBoundingBox();
-    DrawRectangleLinesEx(boundingBox, 2, GREEN);
+    for (auto& comp : components)
+    {
+        comp->Update(deltaTime);
+    }
 }
 
-void Gameobject::UpdateSprites(float deltaTime, int frameCount)
+void Gameobject::Draw() const
 {
-    elapsedTime += deltaTime;
-
-    if (elapsedTime >= frameTime)
+    for (const auto& comp : components)
     {
-        currentFrame = (currentFrame + 1) % frameCount;
-        elapsedTime = 0.0f;
+        comp->Draw();
     }
 }

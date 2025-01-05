@@ -28,18 +28,15 @@ public:
     void Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager);
 
     void Update(float deltaTime) override;
-    void Draw() const override;
 
     void TakeDamage(int damage) override;
     void Heal(int amount) override;
     void Death() override;
 
-    void OnTriggerEnter2D(Gameobject *other) override;
-    Rectangle GetBoundingBox() const override;
-
     ~Asteroid() override;
 
     void Destroy() override;
+    void OnTriggerEnter2D(Gameobject *other) override;
 };
 
 

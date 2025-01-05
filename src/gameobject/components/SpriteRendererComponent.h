@@ -25,7 +25,7 @@ class SpriteRendererComponent : public Component
 public:
     explicit SpriteRendererComponent(Gameobject &owner) : Component(owner) {}
 
-    void SetTexture(const Texture2D& tex, int width, int height, int frameCount = 1);
+    void SetTexture(const Texture2D& tex, int frameCount = 1);
 
     [[nodiscard]] Vector2 const &GetOrigin() const { return origin; }
 

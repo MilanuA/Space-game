@@ -2,16 +2,16 @@
 #include "TransformComponent.h"
 
 
-void SpriteRendererComponent::SetTexture(const Texture2D &tex, int width, int height, int frameCount)
+void SpriteRendererComponent::SetTexture(const Texture2D& tex, int frameCount)
 {
     this->frameCount = frameCount;
     const Vector2& scale = owner.GetTransform().GetScale();
 
     texture = tex;
-    frameWidth = (width / frameCount) * scale.x;
-    frameHeight = height * scale.y;
+    frameWidth = texture.width / frameCount * scale.x;
+    frameHeight = texture.height * scale.y;
 
-    origin = {static_cast<float>(frameWidth) * scale.x / 2, static_cast<float>(frameHeight) * scale.y / 2};
+    origin = {static_cast<float>(frameWidth) * scale.x / 2.0f, static_cast<float>(frameHeight) * scale.y / 2.0f};
 }
 
 void SpriteRendererComponent::UpdateSprites(float deltaTime, int frameCount)
