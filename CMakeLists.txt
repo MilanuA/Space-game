@@ -59,6 +59,12 @@ add_executable(${PROJECT_NAME} main.cpp
         src/systems/debug/DebugGame.h
         src/systems/animation/Animation.cpp
         src/systems/animation/Animation.h
+        src/gameobject/components/TransformComponent.cpp
+        src/gameobject/components/TransformComponent.h
+        src/gameobject/components/SpriteRendererComponent.cpp
+        src/gameobject/components/SpriteRendererComponent.h
+        src/gameobject/components/ColliderComponent.cpp
+        src/gameobject/components/ColliderComponent.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

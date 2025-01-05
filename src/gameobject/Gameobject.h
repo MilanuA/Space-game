@@ -35,7 +35,7 @@ public:
     void DrawCollisionBox() const;
 
     [[nodiscard]] Vector2 GetPosition() const { return position; }
-    [[nodiscard]] GameobjectsEnum GetTag() const { return tag; }
+    [[nodiscard]] GameobjectsEnum const &GetTag() const { return tag; }
 };
 
 
