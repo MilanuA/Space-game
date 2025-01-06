@@ -22,6 +22,8 @@ public:
 
     [[nodiscard]] Vector2 const &GetScale() const { return scale; }
     void SetScale(Vector2 const &scale) { this->scale = scale; }
+
+    void Update(float deltaTime) override;
 };
 
 

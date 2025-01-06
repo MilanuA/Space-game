@@ -20,6 +20,8 @@ public:
     }
 
     void DrawCollisionBox() const;
+
+    void Update(float deltaTime) override;
 };
 
 

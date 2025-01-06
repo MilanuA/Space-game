@@ -42,17 +42,7 @@ void Projectile::Update(float deltaTime)
 
     if (!isActive) return;
 
-
     transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(velocity, ASTEROID_SPEED * deltaTime)));
-
-    // Deactivate if out of bounds
-    if (Helper::IsOutsideScreen(transform.GetPosition(), SCREEN_BUFFER))
-    {
-        DeactivateProjectile();
-    }
-
-    if (DebugGame::GetInstance().IsDebugEnabled())
-        this->GetComponent<ColliderComponent>()->DrawCollisionBox();
 }
 
 void Projectile::OnTriggerEnter2D(Gameobject *other)

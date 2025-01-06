@@ -3,6 +3,8 @@
 
 void Gameobject::Update(float deltaTime)
 {
+    transform.Update(deltaTime);
+
     for (auto& comp : components)
     {
         comp->Update(deltaTime);

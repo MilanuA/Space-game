@@ -14,15 +14,17 @@ protected:
     TransformComponent transform;
     std::vector<std::unique_ptr<Component>> components;
     GameobjectsEnum tag = GameobjectsEnum::NONE;
+    float screenBuffer;
 
 public:
-    explicit Gameobject(const GameobjectsEnum tag) : transform(this), tag(tag) {}
+    explicit Gameobject(const GameobjectsEnum tag, float screenBuffer = 0) : transform(this), tag(tag), screenBuffer(screenBuffer) {}
     virtual ~Gameobject() = default;
 
     TransformComponent& GetTransform() { return transform; }
     [[nodiscard]] const TransformComponent& GetTransform() const { return transform; }
 
     [[nodiscard]] GameobjectsEnum GetTag() const { return tag; }
+    [[nodiscard]] float GetScreenBuffer() const { return screenBuffer; }
 
     template <typename T, typename... Args>
     T& AddComponent(Args&&... args)

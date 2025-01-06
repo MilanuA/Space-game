@@ -4,9 +4,8 @@
 #include "../../gameobject/components/ColliderComponent.h"
 #include "../../gameobject/components/SpriteRendererComponent.h"
 #include "../../systems/collisionManager/CollisionManager.h"
-#include "../../systems/debug/DebugGame.h"
 
-Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH), scoreManager(nullptr)
+Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid, SCREEN_BUFFER), IHealth(MAX_ASTEROID_HEALTH)
 {
     transform.SetScale(Vector2(ASTEROID_SPRITE_SCALE, ASTEROID_SPRITE_SCALE));
     this->AddComponent<SpriteRendererComponent>().SetTexture(LoadTexture("../resources/obstacles/asteroid.png"));
@@ -35,14 +34,6 @@ void Asteroid::Update(float deltaTime)
     transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(direction, ASTEROID_SPEED * deltaTime)));
 
     transform.SetRotation(55.0f * deltaTime);
-
-    if (Helper::IsOutsideScreen(transform.GetPosition(), SCREEN_BUFFER))
-    {
-        DeactiveAsteroid();
-    }
-
-    if (DebugGame::GetInstance().IsDebugEnabled())
-         this->GetComponent<ColliderComponent>()->DrawCollisionBox();
 }
 
 void Asteroid::TakeDamage(int damage)
@@ -69,7 +60,6 @@ void Asteroid::Death()
 
     scoreManager->UpdateScore(ASTEROID_DEATH_XP);
     DeactiveAsteroid();
-
 }
 
 void Asteroid::AsteroidExplosion()
@@ -83,8 +73,8 @@ void Asteroid::DeactiveAsteroid()
     CollisionManager::GetInstance().RemoveObject(this);
 }
 
-Asteroid::~Asteroid()
-= default;
+Asteroid::~Asteroid() = default;
+
 
 void Asteroid::Destroy()
 {

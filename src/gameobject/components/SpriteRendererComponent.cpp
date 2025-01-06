@@ -6,14 +6,13 @@
 void SpriteRendererComponent::SetTexture(const Texture2D& tex, int frameCount)
 {
     this->frameCount = frameCount;
-    const Vector2& scale = owner->GetTransform().GetScale();
 
     texture = tex;
     frameWidth = texture.width / frameCount;
     frameHeight = texture.height;
     currentFrame = 1;
 
-    origin = {static_cast<float>(frameWidth) * scale.x / 2.0f, static_cast<float>(frameHeight) * scale.y / 2.0f};
+    origin = {static_cast<float>(frameWidth)/ 2.0f, static_cast<float>(frameHeight) / 2.0f};
 }
 
 void SpriteRendererComponent::UpdateSprites(float deltaTime, int frameCount)
@@ -42,8 +41,10 @@ void SpriteRendererComponent::Draw()
 
     Vector2 position = transform.GetPosition();
     Vector2 scale = transform.GetScale();
+
     Rectangle sourceRec = {static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
     Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * scale.x , static_cast<float>(frameHeight) * scale.y};
+    Vector2 scaledOrigin = {origin.x * scale.x, origin.y * scale.y};
 
-    DrawTexturePro(texture, sourceRec, destRect, origin, transform.GetRotation(), WHITE);
+    DrawTexturePro(texture, sourceRec, destRect, scaledOrigin , transform.GetRotation(), WHITE);
 }
