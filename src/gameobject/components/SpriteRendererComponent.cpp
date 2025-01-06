@@ -1,11 +1,12 @@
 #include "SpriteRendererComponent.h"
 #include "TransformComponent.h"
+#include "../Gameobject.h"
 
 
 void SpriteRendererComponent::SetTexture(const Texture2D& tex, int frameCount)
 {
     this->frameCount = frameCount;
-    const Vector2& scale = owner.GetTransform().GetScale();
+    const Vector2& scale = owner->GetTransform().GetScale();
 
     texture = tex;
     frameWidth = texture.width / frameCount * scale.x;
@@ -36,7 +37,7 @@ void SpriteRendererComponent::Update(float deltaTime)
 
 void SpriteRendererComponent::Draw()
 {
-    const TransformComponent &transform = owner.GetTransform();
+    const TransformComponent &transform = owner->GetTransform();
 
     auto position = transform.GetPosition();
 

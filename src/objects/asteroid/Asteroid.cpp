@@ -6,10 +6,10 @@
 #include "../../systems/collisionManager/CollisionManager.h"
 #include "../../systems/debug/DebugGame.h"
 
-
 Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid), IHealth(MAX_ASTEROID_HEALTH), scoreManager(nullptr)
 {
-    this->AddComponent<SpriteRendererComponent>();
+    transform.SetScale(Vector2(ASTEROID_SPRITE_SCALE, ASTEROID_SPRITE_SCALE));
+    this->AddComponent<SpriteRendererComponent>().SetTexture(LoadTexture("../resources/obstacles/asteroid.png"));
     this->AddComponent<ColliderComponent>();
 }
 
@@ -17,11 +17,6 @@ void Asteroid::Init(Vector2 startPos, Vector2 direction,  ScoreManager &scoreMan
 {
     this->direction = direction;
     transform.SetPosition(startPos);
-    transform.SetScale(Vector2(ASTEROID_SPRITE_SCALE, ASTEROID_SPRITE_SCALE));
-
-    SpriteRendererComponent *spriteRendererComponent = this->GetComponent<SpriteRendererComponent>();
-    spriteRendererComponent->SetTexture(LoadTexture("../resources/obstacles/asteroid.png"));
-
 
     currentHealth = MAX_ASTEROID_HEALTH;
     rotation = 0.0f;
@@ -45,6 +40,9 @@ void Asteroid::Update(float deltaTime)
     {
         DeactiveAsteroid();
     }
+
+    if (DebugGame::GetInstance().IsDebugEnabled())
+         this->GetComponent<ColliderComponent>()->DrawCollisionBox();
 }
 
 void Asteroid::TakeDamage(int damage)

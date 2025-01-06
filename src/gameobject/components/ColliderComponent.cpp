@@ -1,22 +1,29 @@
 #include "ColliderComponent.h"
 
 #include "SpriteRendererComponent.h"
+#include "../Gameobject.h"
 
 const Rectangle &ColliderComponent::GetBoundingBox() const
 {
-    auto* sprite = owner.GetComponent<SpriteRendererComponent>();
-
-    if (!sprite) return {0.0f, 0.0f, 0.0f, 0.0f};
-
-    const TransformComponent &transform = owner.GetTransform();
-    Vector2 position = transform.GetPosition();
-
-    return {
-        position.x,
-        position.y,
-        static_cast<float>(sprite->GetWidth()),
-        static_cast<float>(sprite->GetHeight())
-    };
+    auto* sprite = owner->GetComponent<SpriteRendererComponent>();
+    if (!sprite)
+    {
+        boundingBox = {0.0f, 0.0f, 0.0f, 0.0f};
+    }
+    else
+    {
+        const TransformComponent& transform = owner->GetTransform();
+        Vector2 position = sprite->GetOrigin();
+        int width = sprite->GetWidth() / 3;
+        int height = sprite->GetHeight() / 3;
+        boundingBox = {
+            position.x,
+            position.y,
+            static_cast<float>(width),
+            static_cast<float>(height)
+        };
+    }
+    return boundingBox;
 }
 
 void ColliderComponent::DrawCollisionBox() const

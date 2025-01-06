@@ -5,7 +5,6 @@
 
 #include "Component.h"
 
-
 class TransformComponent : public Component
 {
     Vector2 position = {0.0f, 0.0f};
@@ -13,7 +12,7 @@ class TransformComponent : public Component
     Vector2 scale = {1.0f, 1.0f};
 
 public:
-    explicit TransformComponent(Gameobject &owner) : Component(owner) {}
+    explicit TransformComponent(Gameobject* owner) : Component(owner) {}
 
     [[nodiscard]] Vector2 const &GetPosition() const { return position; }
     void SetPosition(Vector2 const &position) { this->position = position; }

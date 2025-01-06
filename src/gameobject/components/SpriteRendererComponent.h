@@ -23,7 +23,7 @@ class SpriteRendererComponent : public Component
     void UpdateSprites(float deltaTime, int frameCount);
 
 public:
-    explicit SpriteRendererComponent(Gameobject &owner) : Component(owner) {}
+    explicit SpriteRendererComponent(Gameobject* owner) : Component(owner) {}
 
     void SetTexture(const Texture2D& tex, int frameCount = 1);
 

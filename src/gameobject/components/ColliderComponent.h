@@ -7,8 +7,10 @@
 
 class ColliderComponent : public Component
 {
+    mutable Rectangle boundingBox;
+
 public:
-    explicit ColliderComponent( Gameobject& owner) : Component(owner) {}
+    explicit ColliderComponent( Gameobject* owner) : Component(owner) {}
 
     [[nodiscard]] const Rectangle& GetBoundingBox() const;
 

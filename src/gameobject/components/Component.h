@@ -1,14 +1,14 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
-#include "../Gameobject.h"
 
+class Gameobject;
 
 class Component
 {
 protected:
-    Gameobject& owner;
+    Gameobject* owner;
 public:
-    explicit Component(Gameobject& owner) : owner(owner) {}
+    explicit Component(Gameobject* owner) : owner(owner) {}
     virtual ~Component() = default;
 
     virtual void Update(float deltaTime) {}

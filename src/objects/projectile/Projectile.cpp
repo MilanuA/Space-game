@@ -4,15 +4,18 @@
 #include <raymath.h>
 #include "../asteroid/Asteroid.h"
 #include "../../Helper.h"
+#include "../../gameobject/components/ColliderComponent.h"
+#include "../../gameobject/components/SpriteRendererComponent.h"
 #include "../../systems/collisionManager/CollisionManager.h"
 #include "../../systems/debug/DebugGame.h"
+
 class Asteroid;
 
 Projectile::Projectile() : Gameobject(GameobjectsEnum::Projectile)
 {
-    texture = LoadTexture("../resources/ships/projectiles/projectiles.png");
-    frameWidth = texture.width / 3;
-    frameHeight = texture.height;
+    transform.SetScale(Vector2(PROJECTILE_SPRITE_SCALE, PROJECTILE_SPRITE_SCALE));
+    this->AddComponent<SpriteRendererComponent>().SetTexture(LoadTexture("../resources/ships/projectiles/projectiles.png"), 3);
+    this->AddComponent<ColliderComponent>();
 }
 
 Projectile::Projectile(Vector2 startPos, Vector2 direction) : Projectile()
@@ -22,10 +25,12 @@ Projectile::Projectile(Vector2 startPos, Vector2 direction) : Projectile()
 
 void Projectile::Init(Vector2 startPos, Vector2 direction)
 {
-    position = startPos;
+    transform.SetPosition(startPos);
     velocity = Vector2Normalize(direction);
 
     rotation = std::atan2(velocity.y, velocity.x) * RAD2DEG;
+
+    transform.SetRotation(rotation);
 
     Activate();
     CollisionManager::GetInstance().AddObject(this);
@@ -33,32 +38,20 @@ void Projectile::Init(Vector2 startPos, Vector2 direction)
 
 void Projectile::Update(float deltaTime)
 {
+    Gameobject::Update(deltaTime);
+
     if (!isActive) return;
 
-    position.x += velocity.x * deltaTime * PROJECTILE_SPEED;
-    position.y += velocity.y * deltaTime * PROJECTILE_SPEED;
-
-    UpdateSprites(deltaTime, 3);
+    transform.SetPosition(velocity * deltaTime * PROJECTILE_SPEED);
 
     // Deactivate if out of bounds
-    if (Helper::IsOutsideScreen(position))
+    if (Helper::IsOutsideScreen(transform.GetPosition(), SCREEN_BUFFER))
     {
         DeactivateProjectile();
     }
 
     if (DebugGame::GetInstance().IsDebugEnabled())
-        DrawCollisionBox();
-}
-
-void Projectile::Draw() const
-{
-    if (!isActive) return;
-
-    Rectangle sourceRect = {static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
-    Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * PROJECTILE_SPRITE_SCALE, static_cast<float>(frameHeight) * PROJECTILE_SPRITE_SCALE};
-    Vector2 origin = {static_cast<float>(frameWidth) * PROJECTILE_SPRITE_SCALE / 2, static_cast<float>(frameHeight) * PROJECTILE_SPRITE_SCALE / 2};
-
-    DrawTexturePro(texture, sourceRect, destRect, origin, rotation + 90, WHITE);
+        this->GetComponent<ColliderComponent>()->DrawCollisionBox();
 }
 
 void Projectile::OnTriggerEnter2D(Gameobject *other)
@@ -74,20 +67,6 @@ void Projectile::OnTriggerEnter2D(Gameobject *other)
         DeactivateProjectile();
     }
 }
-
-Rectangle Projectile::GetBoundingBox() const
-{
-    float scaledWidth = frameWidth ;
-    float scaledHeight = frameHeight ;
-
-    return {
-        position.x - scaledWidth / 2,
-        position.y - scaledHeight / 2,
-        scaledWidth,
-        scaledHeight
-    };
-}
-
 
 void Projectile::DeactivateProjectile()
 {

@@ -6,6 +6,7 @@
 #include "GameobjectsEnum.h"
 #include "components/TransformComponent.h"
 
+class Component;
 
 class Gameobject
 {
@@ -19,15 +20,15 @@ public:
     virtual ~Gameobject() = default;
 
     TransformComponent& GetTransform() { return transform; }
-    const TransformComponent& GetTransform() const { return transform; }
+    [[nodiscard]] const TransformComponent& GetTransform() const { return transform; }
 
-    GameobjectsEnum GetTag() const { return tag; }
+    [[nodiscard]] GameobjectsEnum GetTag() const { return tag; }
 
     template <typename T, typename... Args>
     T& AddComponent(Args&&... args)
     {
         static_assert(std::is_base_of<Component, T>::value, "T must inherit from Component");
-        components.emplace_back(std::make_unique<T>(*this, std::forward<Args>(args)...));
+        components.emplace_back(std::make_unique<T>(this, std::forward<Args>(args)...));
         return *dynamic_cast<T*>(components.back().get());
     }
 

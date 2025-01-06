@@ -22,11 +22,8 @@ public:
     void Init(Vector2 startPos, Vector2 direction);
 
     void Update(float deltaTime) override;
-    void Draw() const override;
 
     void OnTriggerEnter2D(Gameobject *other) override;
-
-    Rectangle GetBoundingBox() const override;
 
     void Destroy() override;
 };
