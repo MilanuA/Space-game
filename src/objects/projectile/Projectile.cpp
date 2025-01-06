@@ -30,7 +30,7 @@ void Projectile::Init(Vector2 startPos, Vector2 direction)
 
     rotation = std::atan2(velocity.y, velocity.x) * RAD2DEG;
 
-    transform.SetRotation(rotation);
+    transform.SetRotation(rotation + 90.0f);
 
     Activate();
     CollisionManager::GetInstance().AddObject(this);
@@ -42,7 +42,8 @@ void Projectile::Update(float deltaTime)
 
     if (!isActive) return;
 
-    transform.SetPosition(velocity * deltaTime * PROJECTILE_SPEED);
+
+    transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(velocity, ASTEROID_SPEED * deltaTime)));
 
     // Deactivate if out of bounds
     if (Helper::IsOutsideScreen(transform.GetPosition(), SCREEN_BUFFER))

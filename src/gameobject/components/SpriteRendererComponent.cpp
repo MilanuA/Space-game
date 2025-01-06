@@ -9,8 +9,9 @@ void SpriteRendererComponent::SetTexture(const Texture2D& tex, int frameCount)
     const Vector2& scale = owner->GetTransform().GetScale();
 
     texture = tex;
-    frameWidth = texture.width / frameCount * scale.x;
-    frameHeight = texture.height * scale.y;
+    frameWidth = texture.width / frameCount;
+    frameHeight = texture.height;
+    currentFrame = 1;
 
     origin = {static_cast<float>(frameWidth) * scale.x / 2.0f, static_cast<float>(frameHeight) * scale.y / 2.0f};
 }
@@ -39,10 +40,10 @@ void SpriteRendererComponent::Draw()
 {
     const TransformComponent &transform = owner->GetTransform();
 
-    auto position = transform.GetPosition();
-
-    Rectangle sourceRec = {0.0f, 0.0f, static_cast<float>(texture.width), static_cast<float>(texture.height)};
-    Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
+    Vector2 position = transform.GetPosition();
+    Vector2 scale = transform.GetScale();
+    Rectangle sourceRec = {static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(frameHeight)};
+    Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * scale.x , static_cast<float>(frameHeight) * scale.y};
 
     DrawTexturePro(texture, sourceRec, destRect, origin, transform.GetRotation(), WHITE);
 }
