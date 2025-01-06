@@ -2,7 +2,7 @@
 
 This project is a simple space-themed game built using C++ and the Raylib library. It features basic game mechanics such as player-controlled ships, projectiles, and asteroids.
 
-**Disclaimer:** This project is still in development and it is made for educational purposes only.
+**Disclaimer:** This project is still in development, and it is made for educational purposes only.
 ## Features
 
 - **Main menu**: Navigate between different game scenes.
@@ -12,11 +12,12 @@ This project is a simple space-themed game built using C++ and the Raylib librar
 ## Project Structure
 
 - **main.cpp**: The entry point of the application.
+- **helper.h**: Contains helper functions.
 - **Scenes**: Contains different scenes like Main Menu and Gameplay.
 - **UI**: Includes components like buttons and score managers.
-- **Ship**: Manages the player's ship and its interactions.
-- **In-Game Objects**: Contains classes for objects - such as asteroids.
-- **Object Pooling**: Implements pooling for efficient object management.
+- **Objects**: Manages in-game objects.
+- **GameObjects**: Contains base class for gameobjects and their components.
+- **Systems**: Handles game systems.
 
 ## Dependencies
 

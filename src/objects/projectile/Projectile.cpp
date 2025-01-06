@@ -42,7 +42,7 @@ void Projectile::Update(float deltaTime)
 
     if (!isActive) return;
 
-    transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(velocity, ASTEROID_SPEED * deltaTime)));
+    transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(velocity, PROJECTILE_SPEED * deltaTime)));
 }
 
 void Projectile::OnTriggerEnter2D(Gameobject *other)
