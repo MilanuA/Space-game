@@ -23,7 +23,7 @@ const Rectangle &ColliderComponent::GetBoundingBox() const
         boundingBox = {
             position.x  - origin.x,
             position.y - origin.y,
-            static_cast<float>(width),
+            static_cast<float>(width ),
             static_cast<float>(height)
         };
     }

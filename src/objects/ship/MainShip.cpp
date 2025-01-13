@@ -3,11 +3,13 @@
 #include <iostream>
 #include <raymath.h>
 
+#include "../../gameobject/components/ColliderComponent.h"
 #include "../../gameobject/components/SpriteRendererComponent.h"
 
 void MainShip::Init()
 {
     this->AddComponent<SpriteRendererComponent>().SetTexture( LoadTexture("../resources/ships/mainship.png"));
+    this->AddComponent<ColliderComponent>();
 
     transform.SetPosition(Vector2(400,300));
 }
