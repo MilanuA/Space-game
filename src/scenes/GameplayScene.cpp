@@ -2,14 +2,12 @@
 #include "../systems/collisionManager/CollisionManager.h"
 #include "../systems/debug/DebugGame.h"
 
-GameplayScene::GameplayScene() : objectsSpawner(scoreManager),  music()
+GameplayScene::GameplayScene() : objectsSpawner(scoreManager), music()
 {
-
 }
 
 void GameplayScene::Init()
 {
-
     mainShip.Init();
 
     music = LoadMusicStream("../resources/audio/spaceMusic.mp3");
@@ -21,7 +19,7 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
     UpdateMusicStream(music);
 
     scoreManager.UpdateScorePerSecond();
-    mainShip.UpdatePosition(mousePosition);
+    mainShip.Update(GetFrameTime());
 
     CollisionManager::GetInstance().CheckCollisions();
 
@@ -52,8 +50,8 @@ void GameplayScene::Draw()
     ClearBackground({ 16, 16, 73, 255 });
 
     scoreManager.Draw();
-    mainShip.DrawShip();
     objectsSpawner.Draw();
+    mainShip.Draw();
 
     if (DebugGame::GetInstance().IsDebugEnabled())
     {

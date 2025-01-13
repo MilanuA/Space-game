@@ -1,43 +1,64 @@
 #include "MainShip.h"
 #include <cmath>
+#include <iostream>
 #include <raymath.h>
+
+#include "../../gameobject/components/SpriteRendererComponent.h"
 
 void MainShip::Init()
 {
-    shipTexture = LoadTexture("../resources/ships/mainship.png");
-    shipPosition = {400, 300};
+    this->AddComponent<SpriteRendererComponent>().SetTexture( LoadTexture("../resources/ships/mainship.png"));
+
+    transform.SetPosition(Vector2(400,300));
 }
 
-void MainShip::UpdatePosition(Vector2 mousePosition)
+void MainShip::UpdatePosition()
 {
-    shipPosition.x += (mousePosition.x - shipPosition.x) / dragSpeed;
-    shipPosition.y += (mousePosition.y - shipPosition.y) / dragSpeed;
+    Vector2 mousePosition = GetMousePosition();
 
-    const float x = static_cast<float>(GetMouseX()) - shipPosition.x;
-    const float y = static_cast<float>(GetMouseY()) - shipPosition.y;
-    rotation = std::atan2(y, x) * RAD2DEG;
-}
+    Vector2 direction = Vector2Subtract(mousePosition, transform.GetPosition());
+    Vector2 newPosition = Vector2Add(transform.GetPosition(), Vector2Scale(direction, 1.0f / dragSpeed));
 
-void MainShip::DrawShip() const
-{
+    transform.SetPosition(newPosition);
 
-
-    Rectangle sourceRec = {0, 0, static_cast<float>(shipTexture.width), static_cast<float>(shipTexture.height)};
-    Rectangle destRec = {shipPosition.x, shipPosition.y, static_cast<float>(shipTexture.width) * SHIP_SPRITE_SCALE, static_cast<float>(shipTexture.height) * SHIP_SPRITE_SCALE};
-    Vector2 origin = {static_cast<float>(shipTexture.width) / 2, static_cast<float>(shipTexture.height) / 2};
-
-    DrawTexturePro(shipTexture, sourceRec, destRec, origin, rotation + 90, RAYWHITE);
+    const float x = static_cast<float>(GetMouseX()) - transform.GetPosition().x;
+    const float y = static_cast<float>(GetMouseY()) - transform.GetPosition().y;
+    transform.SetRotation(std::atan2(y, x) * RAD2DEG + 90);
 }
 
 bool MainShip::IsMovingFast() const
 {
     Vector2 mousePosition = {static_cast<float>(GetMouseX()), static_cast<float>(GetMouseY())};
-    Vector2 delta = Vector2Subtract(shipPosition, mousePosition);
+    Vector2 delta = Vector2Subtract(transform.GetPosition(), mousePosition);
     float speed = Vector2Length(delta);
+
     return speed > 200.0f;
+}
+
+void MainShip::Update(float deltaTime)
+{
+    Gameobject::Update(deltaTime);
+
+    UpdatePosition();
+}
+
+void MainShip::Destroy()
+{
+    Gameobject::Destroy();
+}
+
+void MainShip::OnTriggerEnter2D(Gameobject *other)
+{
+    Gameobject::OnTriggerEnter2D(other);
+}
+
+void MainShip::Draw() const
+{
+    Gameobject::Draw();
 }
 
 MainShip::~MainShip()
 {
-    UnloadTexture(shipTexture);
+
 }
+

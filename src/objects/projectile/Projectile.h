@@ -12,7 +12,6 @@ constexpr float PROJECTILE_DAMAGE = 10.0f;
 class Projectile : public Gameobject, public PoolableObject
 {
     Vector2 velocity = {0.0f, 0.0f};
-    float rotation = 0.0f;
 
     void DeactivateProjectile();
 public:

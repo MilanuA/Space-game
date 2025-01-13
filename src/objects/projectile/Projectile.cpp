@@ -28,9 +28,7 @@ void Projectile::Init(Vector2 startPos, Vector2 direction)
     transform.SetPosition(startPos);
     velocity = Vector2Normalize(direction);
 
-    rotation = std::atan2(velocity.y, velocity.x) * RAD2DEG;
-
-    transform.SetRotation(rotation + 90.0f);
+    transform.SetRotation(std::atan2(velocity.y, velocity.x) * RAD2DEG + 90.0f);
 
     Activate();
     CollisionManager::GetInstance().AddObject(this);

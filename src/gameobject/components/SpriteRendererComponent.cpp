@@ -1,4 +1,7 @@
 #include "SpriteRendererComponent.h"
+
+#include <iostream>
+
 #include "TransformComponent.h"
 #include "../Gameobject.h"
 
@@ -46,5 +49,6 @@ void SpriteRendererComponent::Draw()
     Rectangle destRect = {position.x, position.y, static_cast<float>(frameWidth) * scale.x , static_cast<float>(frameHeight) * scale.y};
     Vector2 scaledOrigin = {origin.x * scale.x, origin.y * scale.y};
 
+    float rotation = transform.GetRotation();
     DrawTexturePro(texture, sourceRec, destRect, scaledOrigin , transform.GetRotation(), WHITE);
 }
