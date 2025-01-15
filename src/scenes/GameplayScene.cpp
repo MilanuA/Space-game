@@ -2,9 +2,12 @@
 #include "../systems/collisionManager/CollisionManager.h"
 #include "../systems/debug/DebugGame.h"
 
-GameplayScene::GameplayScene() : objectsSpawner(scoreManager), music()
-{
-}
+GameplayScene::GameplayScene() : objectsSpawner(scoreManager),
+mainShip(&healthBar),
+healthBar(LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_background.png"),
+    LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_fill.png"),
+    Vector2(GetRenderWidth(), 40)),
+music() {}
 
 void GameplayScene::Init()
 {
@@ -52,6 +55,7 @@ void GameplayScene::Draw()
     scoreManager.Draw();
     objectsSpawner.Draw();
     mainShip.Draw();
+    healthBar.Render();
 
     if (DebugGame::GetInstance().IsDebugEnabled())
     {

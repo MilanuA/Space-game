@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(SampleGame)
+project(SpaceGame)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -67,6 +67,10 @@ add_executable(${PROJECT_NAME} main.cpp
         src/gameobject/components/ColliderComponent.h
         src/gameobject/components/Component.cpp
         src/gameobject/components/Component.h
+        src/ui/slider/Slider.cpp
+        src/ui/slider/Slider.h
+        src/ui/healthBar/HealthBar.cpp
+        src/ui/healthBar/HealthBar.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

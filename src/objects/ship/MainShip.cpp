@@ -3,6 +3,7 @@
 #include <iostream>
 #include <raymath.h>
 
+#include "../../Helper.h"
 #include "../../gameobject/components/ColliderComponent.h"
 #include "../../gameobject/components/SpriteRendererComponent.h"
 
@@ -12,6 +13,9 @@ void MainShip::Init()
     this->AddComponent<ColliderComponent>();
 
     transform.SetPosition(Vector2(400,300));
+    transform.SetScale(Vector2(SHIP_SPRITE_SCALE, SHIP_SPRITE_SCALE));
+
+    playerHealthBar->SetMaxHealth(SHIP_MAX_HEALTH);
 }
 
 void MainShip::UpdatePosition()
@@ -51,7 +55,12 @@ void MainShip::Destroy()
 
 void MainShip::OnTriggerEnter2D(Gameobject *other)
 {
-    Gameobject::OnTriggerEnter2D(other);
+
+    if (other->GetTag() == GameobjectsEnum::Asteroid)
+    {
+        playerHealthBar->DecreaseHealth(20);
+        Helper::DebugLog("Health decreased");
+    }
 }
 
 void MainShip::Draw() const

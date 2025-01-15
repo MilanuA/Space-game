@@ -3,16 +3,23 @@
 #include <raylib.h>
 
 #include "../../gameobject/Gameobject.h"
+#include "../../ui/healthBar/HealthBar.h"
 
 constexpr float SHIP_SPRITE_SCALE = 1.5f;
+constexpr float SHIP_MAX_HEALTH = 100.0f;
+
 class MainShip : public Gameobject
 {
     float dragSpeed = 40.0f;
 
+    HealthBar *playerHealthBar;
+
     void UpdatePosition();
 
 public:
-    MainShip() : Gameobject(GameobjectsEnum::PlayerShip, 0.0f){}
+    explicit MainShip(HealthBar* healthBar) : Gameobject(GameobjectsEnum::PlayerShip, 0.0f) {
+        playerHealthBar = healthBar;
+    }
 
     void Init();
     [[nodiscard]] Vector2 GetPosition() const { return transform.GetPosition(); }

@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "../objects/ship/MainShip.h"
 #include "../systems/objectsSpawner/ObjectsSpawner.h"
+#include "../ui/healthBar/HealthBar.h"
 #include "../ui/score/ScoreManager.h"
 
 class GameplayScene : public Scene
@@ -11,6 +12,7 @@ class GameplayScene : public Scene
     ScoreManager scoreManager;
     ObjectsSpawner objectsSpawner;
     MainShip mainShip;
+    HealthBar healthBar;
     Music music;
 
     void ShowFPS();

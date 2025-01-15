@@ -17,7 +17,7 @@ public:
     [[nodiscard]] Vector2 const &GetPosition() const { return position; }
     void SetPosition(Vector2 const &position) { this->position = position; }
 
-    [[nodiscard]] float const &GetRotation() const { return rotation; }
+    [[nodiscard]] float GetRotation() const { return rotation; }
     void SetRotation(float const &rotation) { this->rotation = rotation; }
 
     [[nodiscard]] Vector2 const &GetScale() const { return scale; }

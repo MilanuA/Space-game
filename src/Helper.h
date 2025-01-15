@@ -1,5 +1,6 @@
 #ifndef HELPER_H
 #define HELPER_H
+#include <iostream>
 #include <raylib.h>
 
 
@@ -16,6 +17,10 @@ public:
                position.y < -outOfScreenBuffer || position.y > GetScreenHeight() + outOfScreenBuffer;
     }
 
+    static void DebugLog(std::string message)
+    {
+        std::cout << message << std::endl;
+    }
 };
 
 
