@@ -7,6 +7,7 @@
 
 constexpr float SHIP_SPRITE_SCALE = 1.5f;
 constexpr float SHIP_MAX_HEALTH = 100.0f;
+constexpr float ASTEROID_DAMAGE = 10.0f;
 
 class MainShip : public Gameobject
 {
