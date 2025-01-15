@@ -1,13 +1,12 @@
 #include "MainMenuScene.h"
-#include <iostream>
 
 constexpr int BACKGROUND_FRAMES = 4;
 
 MainMenuScene::MainMenuScene()
-    : startButton("../resources/start_button.png", {0.0f, 0.0f}, 0.5f),
-      exitButton("../resources/exit_button.png", {0.0f, 0.0f}, 0.5f),
-      background({}), backgroundSourceRec({0}), backgroundDestRec({0}), sceneManager(sceneManager),
-      animationFrameWidth(0), currentFrame(0), frameTime(0.2f), elapsedTime(0.0f) {
+    : startButton("../resources/ui/buttons/play_button.png", {0.0f, 0.0f}, 8.f),
+      exitButton("../resources/ui/buttons/exit_button.png", {0.0f, 0.0f}, 8.),
+      background({}), backgroundSourceRec({0}), backgroundDestRec({0}), sceneManager(sceneManager)
+{
 }
 
 void MainMenuScene::Init(SceneManager &sceneManager)
@@ -19,19 +18,19 @@ void MainMenuScene::Init(SceneManager &sceneManager)
 
     background = LoadTexture("../resources/background.png");
 
-    animationFrameWidth = background.width / BACKGROUND_FRAMES;
+    backgroundSourceRec = {0.0f, 0.0f, (float)background.width , (float)background.height};
+    backgroundDestRec = {0.0f, 0.0f, (float)screenWidth, (float)screenHeight};
 
-    backgroundSourceRec = { 0.0f, 0.0f, (float)animationFrameWidth, (float)background.height };
-    backgroundDestRec = { 0.0f, 0.0f, (float)screenWidth, (float)screenHeight };
+    Vector2 startBtnSize = startButton.Size();
+    Vector2 exitBtnSize = exitButton.Size();
 
-    startButton.SetPosition({(float)(screenWidth / 2 - 80), (float)(screenHeight / 2 - 100)});
-    exitButton.SetPosition({(float)(screenWidth / 2 - 80), (float)(screenHeight / 2 + 50)});
+    startButton.SetPosition({(float)(screenWidth / 2  - startBtnSize.x / 2 ), (float)(screenHeight / 2 - 100)});
+    exitButton.SetPosition({(float)(screenWidth / 2 - exitBtnSize.x / 2), (float)(screenHeight / 2 + 50)});
 }
 
 void MainMenuScene::Update(Vector2 const mousePosition, bool const mousePressed)
 {
     ButtonInteraction(mousePosition, mousePressed);
-    BackgroundAnimation();
 }
 
 void MainMenuScene::Draw()
@@ -58,23 +57,5 @@ void MainMenuScene::ButtonInteraction(Vector2 const mousePosition, bool const mo
     if (exitButton.IsPressed(mousePosition, mousePressed))
     {
         sceneManager->Exit();
-    }
-}
-
-void MainMenuScene::BackgroundAnimation()
-{
-    elapsedTime += GetFrameTime();
-
-    if (elapsedTime >= frameTime)
-    {
-        elapsedTime = 0.0f;
-        currentFrame++;
-
-        if (currentFrame >= BACKGROUND_FRAMES)
-        {
-            currentFrame = 0;
-        }
-
-        backgroundSourceRec.x = (float)(currentFrame * animationFrameWidth);
     }
 }

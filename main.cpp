@@ -23,11 +23,10 @@ int main(void)
 
     SceneManager sceneManager;
     sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenuScene>());
-
     sceneManager.RegisterScene(SceneType::GAME, std::make_unique<GameplayScene>());
     sceneManager.RegisterScene(SceneType::DEATH, std::make_unique<DeathScene>());
 
-    sceneManager.SetCurrentScene(SceneType::GAME);
+    sceneManager.SetCurrentScene(SceneType::DEATH);
 
     while (!exitWindow)
     {

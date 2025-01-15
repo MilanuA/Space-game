@@ -6,16 +6,11 @@ Button::Button(const char *imagePath, Vector2 imagePosition, float scale)
 {
     Image image = LoadImage(imagePath);
 
-    int originalWidth = image.width;
-    int originalHeight = image.height;
-
-    int newWidth = static_cast<int>(originalWidth * scale);
-    int newHeight = static_cast<int>(originalHeight * scale);
-
-    ImageResize(&image, newWidth, newHeight);
     texture = LoadTextureFromImage(image);
     UnloadImage(image);
+
     position = imagePosition;
+    scaleFactor = scale;
 }
 
 Button::~Button()
@@ -25,7 +20,11 @@ Button::~Button()
 
 void Button::Draw()
 {
-    DrawTextureV(texture, position, (wasHoveredBefore ? darkenColor : normalColor));
+    Rectangle sourceRec = {0.0f, 0.0f, static_cast<float>(texture.width), static_cast<float>(texture.height)};
+    Rectangle destRec = {position.x, position.y, texture.width * scaleFactor, texture.height * scaleFactor};
+    Vector2 origin = {0.0f, 0.0f};
+
+    DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, (wasHoveredBefore ? darkenColor : normalColor));
 }
 
 void Button::SetPosition(Vector2 newPosition)
@@ -35,7 +34,7 @@ void Button::SetPosition(Vector2 newPosition)
 
 bool Button::IsPressed(Vector2 mousePos, bool mousePressed)
 {
-    Rectangle rect = {position.x, position.y, static_cast<float>(texture.width), static_cast<float>(texture.height)};
+    Rectangle rect = {position.x, position.y, texture.width * scaleFactor, texture.height * scaleFactor};
     bool isHovered = CheckCollisionPointRec(mousePos, rect);
 
     if (!isHovered && wasHoveredBefore)

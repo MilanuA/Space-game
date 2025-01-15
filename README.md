@@ -34,4 +34,7 @@ This project is a simple space-themed game built using C++ and the Raylib librar
 
 ## Credits
 - Music: [Space](https://pixabay.com/music/upbeat-space-120280/)
-- Assets: [Foozle](https://foozlecc.itch.io/)
+- Assets: 
+  - [Ship and asteroids](https://foozlecc.itch.io/)
+  - [Buttons](https://slyfox-studios.itch.io/buttons-pack)
+  - [Health Bar](https://fliflifly.itch.io/hearts-and-health-bar)

@@ -12,13 +12,7 @@ class MainMenuScene : public Scene
     Rectangle backgroundDestRec;
     SceneManager* sceneManager;
 
-    int animationFrameWidth;
-    int currentFrame;
-    float frameTime;
-    float elapsedTime;
-
     void ButtonInteraction(Vector2 mousePosition, bool mousePressed);
-    void BackgroundAnimation();
 
 public:
     explicit MainMenuScene();

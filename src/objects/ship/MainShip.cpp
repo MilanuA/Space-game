@@ -90,7 +90,6 @@ void MainShip::Heal(int amount)
 
 void MainShip::Death()
 {
-    Helper::DebugLog("HELLO");
     Destroy();
 
     scene_manager->SetCurrentScene(SceneType::DEATH);
