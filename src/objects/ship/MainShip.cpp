@@ -4,11 +4,13 @@
 #include <raymath.h>
 
 #include "../../Helper.h"
+#include "../../scenes/Scene.h"
 #include "../../gameobject/components/ColliderComponent.h"
 #include "../../gameobject/components/SpriteRendererComponent.h"
+#include "../../scenes/SceneManager.h"
 #include "../../systems/collisionManager/CollisionManager.h"
 
-void MainShip::Init()
+void MainShip::Init(SceneManager* scene_manager)
 {
     this->AddComponent<SpriteRendererComponent>().SetTexture( LoadTexture("../resources/ships/mainship.png"));
     this->AddComponent<ColliderComponent>();
@@ -16,8 +18,16 @@ void MainShip::Init()
     transform.SetPosition(Vector2(400,300));
     transform.SetScale(Vector2(SHIP_SPRITE_SCALE, SHIP_SPRITE_SCALE));
 
-    playerHealthBar->SetMaxHealth(SHIP_MAX_HEALTH);
+    playerHealthBar->SetMaxHealth(maxHealth);
     CollisionManager::GetInstance().AddObject(this);
+    this->scene_manager = scene_manager;
+}
+
+void MainShip::Update(float deltaTime)
+{
+    Gameobject::Update(deltaTime);
+
+    UpdatePosition();
 }
 
 void MainShip::UpdatePosition()
@@ -43,13 +53,6 @@ bool MainShip::IsMovingFast() const
     return speed > 200.0f;
 }
 
-void MainShip::Update(float deltaTime)
-{
-    Gameobject::Update(deltaTime);
-
-    UpdatePosition();
-}
-
 void MainShip::Destroy()
 {
     Gameobject::Destroy();
@@ -59,7 +62,7 @@ void MainShip::OnTriggerEnter2D(Gameobject *other)
 {
     if (other->GetTag() == GameobjectsEnum::Asteroid)
     {
-        playerHealthBar->DecreaseHealth(ASTEROID_DAMAGE);
+        TakeDamage(500);
         other->Destroy();
     }
 }
@@ -67,6 +70,30 @@ void MainShip::OnTriggerEnter2D(Gameobject *other)
 void MainShip::Draw() const
 {
     Gameobject::Draw();
+}
+
+void MainShip::TakeDamage(int damage)
+{
+    playerHealthBar->DecreaseHealth(damage);
+
+    currentHealth -= damage;
+
+    if (currentHealth > 0) return;
+
+    Death();
+}
+
+void MainShip::Heal(int amount)
+{
+
+}
+
+void MainShip::Death()
+{
+    Helper::DebugLog("HELLO");
+    Destroy();
+
+    scene_manager->SetCurrentScene(SceneType::DEATH);
 }
 
 MainShip::~MainShip()

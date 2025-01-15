@@ -13,19 +13,18 @@ void SceneManager::SetCurrentScene(SceneType const type)
         currentScene->Unload();
     }
 
-
     currentScene = scenes[type].get();
 
     if (!currentScene) return;
 
-    currentScene->Init();
+    currentScene->Init(*this);
 }
 
-void SceneManager::Update(Vector2 const mousePosition, bool const mousePressed)
+void SceneManager::Update(Vector2 const mousePosition, bool const mousePressed) const
 {
     if (!currentScene) return;
 
-    currentScene->Update(mousePosition, mousePressed, *this);
+    currentScene->Update(mousePosition, mousePressed);
 }
 
 void SceneManager::Draw() const

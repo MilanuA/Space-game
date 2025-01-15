@@ -10,23 +10,22 @@ class MainMenuScene : public Scene
     Texture2D background;
     Rectangle backgroundSourceRec;
     Rectangle backgroundDestRec;
+    SceneManager* sceneManager;
 
     int animationFrameWidth;
     int currentFrame;
     float frameTime;
     float elapsedTime;
 
-    void ButtonInteraction(Vector2 mousePosition, bool mousePressed, SceneManager &sceneManager);
+    void ButtonInteraction(Vector2 mousePosition, bool mousePressed);
     void BackgroundAnimation();
+
 public:
-    MainMenuScene();
-    void Init() override;
-    void Update(Vector2 mousePosition, bool mousePressed, SceneManager &sceneManager) override;
+    explicit MainMenuScene();
+    void Init(SceneManager &sceneManager) override;
+    void Update(Vector2 mousePosition, bool mousePressed) override;
     void Draw() override;
     void Unload() override;
-
-private:
-
 };
 
 #endif //MAINMENU_H

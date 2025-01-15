@@ -9,15 +9,15 @@ healthBar(LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_background.pn
     Vector2(GetRenderWidth(), 40)),
 music() {}
 
-void GameplayScene::Init()
+void GameplayScene::Init(SceneManager &sceneManager)
 {
-    mainShip.Init();
+    mainShip.Init(&sceneManager);
 
     music = LoadMusicStream("../resources/audio/spaceMusic.mp3");
     PlayMusicStream(music);
 }
 
-void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMousePressed, SceneManager &sceneManager)
+void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMousePressed)
 {
     UpdateMusicStream(music);
 

@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "src/scenes/DeathScene.h"
 
 #include "src/scenes/GameplayScene.h"
 #include "src/scenes/MainMenuScene.h"
@@ -22,7 +23,10 @@ int main(void)
 
     SceneManager sceneManager;
     sceneManager.RegisterScene(SceneType::MAIN_MENU, std::make_unique<MainMenuScene>());
+
     sceneManager.RegisterScene(SceneType::GAME, std::make_unique<GameplayScene>());
+    sceneManager.RegisterScene(SceneType::DEATH, std::make_unique<DeathScene>());
+
     sceneManager.SetCurrentScene(SceneType::GAME);
 
     while (!exitWindow)

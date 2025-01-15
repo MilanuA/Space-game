@@ -10,7 +10,8 @@ class Scene;
 enum class SceneType
 {
     MAIN_MENU,
-    GAME
+    GAME,
+    DEATH
 };
 
 class SceneManager
@@ -23,7 +24,7 @@ public:
     
     void RegisterScene(SceneType type, std::unique_ptr<Scene> scene);
     void SetCurrentScene(SceneType type);
-    void Update(Vector2 mousePosition, bool mousePressed);
+    void Update(Vector2 mousePosition, bool mousePressed) const;
     void Draw() const;
     void UnloadCurrentScene() const;
 

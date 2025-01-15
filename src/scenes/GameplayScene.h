@@ -19,8 +19,8 @@ class GameplayScene : public Scene
 
 public:
     GameplayScene();
-    void Init() override;
-    void Update(Vector2 mousePosition, bool wasLeftMousePressed, SceneManager &sceneManager) override;
+    void Init( SceneManager &sceneManager) override;
+    void Update(Vector2 mousePosition, bool wasLeftMousePressed) override;
     void Draw() override;
     void Unload() override;
 

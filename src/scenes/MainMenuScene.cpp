@@ -6,15 +6,16 @@ constexpr int BACKGROUND_FRAMES = 4;
 MainMenuScene::MainMenuScene()
     : startButton("../resources/start_button.png", {0.0f, 0.0f}, 0.5f),
       exitButton("../resources/exit_button.png", {0.0f, 0.0f}, 0.5f),
-      background({}), backgroundSourceRec({0}), backgroundDestRec({0}),
-      animationFrameWidth(0), currentFrame(0), frameTime(0.2f), elapsedTime(0.0f)
-{
+      background({}), backgroundSourceRec({0}), backgroundDestRec({0}), sceneManager(sceneManager),
+      animationFrameWidth(0), currentFrame(0), frameTime(0.2f), elapsedTime(0.0f) {
 }
 
-void MainMenuScene::Init()
+void MainMenuScene::Init(SceneManager &sceneManager)
 {
-     int screenWidth = GetMonitorWidth(GetCurrentMonitor());
-     int screenHeight = GetMonitorHeight(GetCurrentMonitor());
+    this->sceneManager = &sceneManager;
+
+    int screenWidth = GetMonitorWidth(GetCurrentMonitor());
+    int screenHeight = GetMonitorHeight(GetCurrentMonitor());
 
     background = LoadTexture("../resources/background.png");
 
@@ -27,9 +28,9 @@ void MainMenuScene::Init()
     exitButton.SetPosition({(float)(screenWidth / 2 - 80), (float)(screenHeight / 2 + 50)});
 }
 
-void MainMenuScene::Update(Vector2 const mousePosition, bool const mousePressed, SceneManager &sceneManager)
+void MainMenuScene::Update(Vector2 const mousePosition, bool const mousePressed)
 {
-    ButtonInteraction(mousePosition, mousePressed, sceneManager);
+    ButtonInteraction(mousePosition, mousePressed);
     BackgroundAnimation();
 }
 
@@ -46,17 +47,17 @@ void MainMenuScene::Unload()
     UnloadTexture(background);
 }
 
-void MainMenuScene::ButtonInteraction(Vector2 const mousePosition, bool const mousePressed, SceneManager &sceneManager)
+void MainMenuScene::ButtonInteraction(Vector2 const mousePosition, bool const mousePressed)
 {
     if (startButton.IsPressed(mousePosition, mousePressed))
     {
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
-        sceneManager.SetCurrentScene(SceneType::GAME);
+        sceneManager->SetCurrentScene(SceneType::GAME);
     }
 
     if (exitButton.IsPressed(mousePosition, mousePressed))
     {
-        sceneManager.Exit();
+        sceneManager->Exit();
     }
 }
 

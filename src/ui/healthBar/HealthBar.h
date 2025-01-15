@@ -11,6 +11,8 @@ public:
     }
 
     void SetMaxHealth(const float maxHealth);
+    /// <summary> Decreases the health by the specified value </summary>
+    /// <param name="value"> The value to decrease the health by </param>
     void DecreaseHealth(float value);
 
 };

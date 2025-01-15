@@ -4,12 +4,13 @@
 
 #include "SceneManager.h"
 
-class Scene {
+class Scene
+{
 public:
     virtual ~Scene() = default;
 
-    virtual void Init() = 0;
-    virtual void Update(Vector2 mousePosition, bool mousePressed, SceneManager &sceneManager) = 0;
+    virtual void Init(SceneManager &sceneManager) = 0;
+    virtual void Update(Vector2 mousePosition, bool mousePressed) = 0;
     virtual void Draw() = 0;
     virtual void Unload() = 0;
 };

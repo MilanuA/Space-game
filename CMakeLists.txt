@@ -71,6 +71,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/ui/slider/Slider.h
         src/ui/healthBar/HealthBar.cpp
         src/ui/healthBar/HealthBar.h
+        src/scenes/DeathScene.cpp
+        src/scenes/DeathScene.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
