@@ -10,6 +10,8 @@ Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid, SCREEN_BUFFER), IHea
     transform.SetScale(Vector2(ASTEROID_SPRITE_SCALE, ASTEROID_SPRITE_SCALE));
     this->AddComponent<SpriteRendererComponent>().SetTexture(LoadTexture("../resources/obstacles/asteroid.png"));
     this->AddComponent<ColliderComponent>().SetCustomCollisionDecreaser(1.3f);
+
+    explosionAnimation = new Animation(LoadTexture("../resources/obstacles/asteroid_explode.png"), 8, 0.1f);
 }
 
 void Asteroid::Init(Vector2 startPos, Vector2 direction,  ScoreManager &scoreManager)
@@ -18,8 +20,8 @@ void Asteroid::Init(Vector2 startPos, Vector2 direction,  ScoreManager &scoreMan
     transform.SetPosition(startPos);
 
     currentHealth = MAX_ASTEROID_HEALTH;
-    rotation = 0.0f;
 
+    playingExplosion = false;
     this->scoreManager = &scoreManager;
     Activate();
     CollisionManager::GetInstance().AddObject(this);
@@ -30,6 +32,17 @@ void Asteroid::Update(float deltaTime)
     Gameobject::Update(deltaTime);
 
     if (!isActive) return;
+
+    if (playingExplosion)
+    {
+        explosionAnimation->Update(deltaTime);
+
+        if (!explosionAnimation->IsPlaying())
+        {
+            DeactiveAsteroid();
+        }
+        return;
+    }
 
     transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(direction, ASTEROID_SPEED * deltaTime)));
 
@@ -64,7 +77,11 @@ void Asteroid::Death()
 
 void Asteroid::AsteroidExplosion()
 {
-    //TODO: Implement explosion
+    if (playingExplosion) return;
+
+    explosionAnimation->Play(transform.GetPosition(), ASTEROID_SPRITE_SCALE, transform.GetRotation());
+    playingExplosion = true;
+    CollisionManager::GetInstance().RemoveObject(this);
 }
 
 void Asteroid::DeactiveAsteroid()
@@ -73,8 +90,10 @@ void Asteroid::DeactiveAsteroid()
     CollisionManager::GetInstance().RemoveObject(this);
 }
 
-Asteroid::~Asteroid() = default;
-
+Asteroid::~Asteroid()
+{
+    delete explosionAnimation;
+}
 
 void Asteroid::Destroy()
 {
@@ -83,10 +102,18 @@ void Asteroid::Destroy()
 
 void Asteroid::OnTriggerEnter2D(Gameobject *other)
 {
-   if (other->GetTag() == GameobjectsEnum::Asteroid)
-   {
-       AsteroidExplosion();
+    if (playingExplosion) return;
 
-       other->Destroy();
-   }
+    AsteroidExplosion();
+}
+
+void Asteroid::Draw() const
+{
+    if (playingExplosion)
+    {
+        explosionAnimation->Draw();
+        return;
+    }
+
+    Gameobject::Draw();
 }

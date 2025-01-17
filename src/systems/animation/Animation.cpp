@@ -1,5 +1,7 @@
 #include "Animation.h"
 
+#include "../../Helper.h"
+
 Animation::Animation(const Texture2D &texture, int frameCount, float frameDuration)
     : texture(texture), frameCount(frameCount), frameDuration(frameDuration), position({0.0f, 0.0f})
 {
@@ -23,14 +25,16 @@ void Animation::Update(float deltaTime)
     if (elapsedTime >= frameDuration)
     {
         elapsedTime -= frameDuration;
-        currentFrame = currentFrame + 1 % frameCount;
+        currentFrame++;
 
-        if (currentFrame == 0)
+        if (currentFrame >= frameCount)
         {
+            currentFrame = 0;
             playing = false;
         }
     }
 }
+
 
 void Animation::Draw() const
 {
@@ -38,11 +42,14 @@ void Animation::Draw() const
 
     int frameWidth = texture.width / frameCount;
     Rectangle source = { static_cast<float>(currentFrame * frameWidth), 0.0f, static_cast<float>(frameWidth), static_cast<float>(texture.height) };
+
     Rectangle dest = { position.x, position.y, frameWidth * scale, texture.height * scale };
-    Vector2 origin = { static_cast<float>(frameWidth / 2), static_cast<float>(texture.height / 2) };
+
+    Vector2 origin = { static_cast<float>(frameWidth * scale / 2.0f), static_cast<float>(texture.height * scale / 2.0f) };
 
     DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
 }
+
 
 void Animation::Stop()
 {

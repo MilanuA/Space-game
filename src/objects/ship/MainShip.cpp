@@ -71,7 +71,6 @@ void MainShip::OnTriggerEnter2D(Gameobject *other)
     if (other->GetTag() == GameobjectsEnum::Asteroid)
     {
         TakeDamage(ASTEROID_DAMAGE);
-        other->Destroy();
     }
 }
 

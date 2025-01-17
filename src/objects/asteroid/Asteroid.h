@@ -2,6 +2,7 @@
 #define ASTEROID_H
 #include <raylib.h>
 #include "../../gameobject/Gameobject.h"
+#include "../../systems/animation/Animation.h"
 #include "../../systems/health/IHealth.h"
 #include "../../systems/objectPooling/PoolableObject.h"
 #include "../../ui/score/ScoreManager.h"
@@ -16,12 +17,14 @@ constexpr float ASTEROID_DEATH_XP = 50;
 class Asteroid : public Gameobject, public PoolableObject, public IHealth
 {
     Vector2 direction = {0.0f, 0.0f};
-    float rotation = 0.0f;
+    bool playingExplosion = false;
 
-    void AsteroidExplosion();
+
     void DeactiveAsteroid();
 
+    Animation* explosionAnimation;
     ScoreManager *scoreManager{};
+
 public:
     Asteroid();
 
@@ -36,7 +39,12 @@ public:
     ~Asteroid() override;
 
     void Destroy() override;
+
     void OnTriggerEnter2D(Gameobject *other) override;
+
+    void Draw() const override;
+
+    void AsteroidExplosion();
 };
 
 
