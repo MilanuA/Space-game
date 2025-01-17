@@ -17,12 +17,12 @@ const Rectangle &ColliderComponent::GetBoundingBox() const
         const TransformComponent& transform = owner->GetTransform();
         Vector2 position = transform.GetPosition();
         Vector2 origin = sprite->GetOrigin();
-        int width = sprite->GetWidth();
-        int height = sprite->GetHeight();
+        int width = sprite->GetWidth() / customCollisionDecreaser;
+        int height = sprite->GetHeight() / customCollisionDecreaser;
 
         boundingBox = {
-            position.x  - origin.x,
-            position.y - origin.y,
+            position.x  - origin.x / customCollisionDecreaser,
+            position.y - origin.y / customCollisionDecreaser,
             static_cast<float>(width ),
             static_cast<float>(height)
         };

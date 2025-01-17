@@ -8,7 +8,7 @@
 class ColliderComponent : public Component
 {
     mutable Rectangle boundingBox;
-
+    float customCollisionDecreaser = 1.0f;
 public:
     explicit ColliderComponent( Gameobject* owner) : Component(owner) {}
 
@@ -18,6 +18,8 @@ public:
     {
         return CheckCollisionRecs(GetBoundingBox(), other.GetBoundingBox());
     }
+
+    void SetCustomCollisionDecreaser(float value) { customCollisionDecreaser = value; }
 
     void DrawCollisionBox() const;
     void Update(float deltaTime) override;

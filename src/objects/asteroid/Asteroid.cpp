@@ -9,7 +9,7 @@ Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid, SCREEN_BUFFER), IHea
 {
     transform.SetScale(Vector2(ASTEROID_SPRITE_SCALE, ASTEROID_SPRITE_SCALE));
     this->AddComponent<SpriteRendererComponent>().SetTexture(LoadTexture("../resources/obstacles/asteroid.png"));
-    this->AddComponent<ColliderComponent>();
+    this->AddComponent<ColliderComponent>().SetCustomCollisionDecreaser(1.3f);
 }
 
 void Asteroid::Init(Vector2 startPos, Vector2 direction,  ScoreManager &scoreManager)

@@ -4,7 +4,6 @@
 #include <raymath.h>
 
 #include "../../Helper.h"
-#include "../../scenes/Scene.h"
 #include "../../gameobject/components/ColliderComponent.h"
 #include "../../gameobject/components/SpriteRendererComponent.h"
 #include "../../scenes/SceneManager.h"
@@ -13,14 +12,17 @@
 void MainShip::Init(SceneManager* scene_manager)
 {
     this->AddComponent<SpriteRendererComponent>().SetTexture( LoadTexture("../resources/ships/mainship.png"));
-    this->AddComponent<ColliderComponent>();
+    this->AddComponent<ColliderComponent>().SetCustomCollisionDecreaser(1.2f);
 
-    transform.SetPosition(Vector2(400,300));
+    transform.SetPosition(SPAWN_POSITION);
     transform.SetScale(Vector2(SHIP_SPRITE_SCALE, SHIP_SPRITE_SCALE));
 
     playerHealthBar->SetMaxHealth(maxHealth);
     CollisionManager::GetInstance().AddObject(this);
     this->scene_manager = scene_manager;
+
+    invulnerabilityTimer = 0.0f;
+    flashTimer = 0.0f;
 }
 
 void MainShip::Update(float deltaTime)
@@ -28,6 +30,10 @@ void MainShip::Update(float deltaTime)
     Gameobject::Update(deltaTime);
 
     UpdatePosition();
+
+    if (state != ShipState::Invulnerable) return;
+
+    UpdateInvulnerability(deltaTime);
 }
 
 void MainShip::UpdatePosition()
@@ -60,22 +66,28 @@ void MainShip::Destroy()
 
 void MainShip::OnTriggerEnter2D(Gameobject *other)
 {
+    if (state == ShipState::Invulnerable) return;
+
     if (other->GetTag() == GameobjectsEnum::Asteroid)
     {
-        TakeDamage(500);
+        TakeDamage(ASTEROID_DAMAGE);
         other->Destroy();
     }
 }
 
 void MainShip::Draw() const
 {
+    if (!isSpriteVisible)  return;
+
     Gameobject::Draw();
 }
 
 void MainShip::TakeDamage(int damage)
 {
-    playerHealthBar->DecreaseHealth(damage);
+    if (state == ShipState::Invulnerable) return;
 
+    playerHealthBar->DecreaseHealth(damage);
+    EnterInvulnerableState();
     currentHealth -= damage;
 
     if (currentHealth > 0) return;
@@ -93,6 +105,34 @@ void MainShip::Death()
     Destroy();
 
     scene_manager->SetCurrentScene(SceneType::DEATH);
+}
+
+
+void MainShip::UpdateInvulnerability(float deltaTime)
+{
+    invulnerabilityTimer -= deltaTime;
+    flashTimer -= deltaTime;
+
+    if (flashTimer <= 0.0f)
+    {
+        isSpriteVisible = !isSpriteVisible;
+        flashTimer = FLASH_INTERVAL;
+    }
+
+    if (invulnerabilityTimer <= 0.0f)
+    {
+        state = ShipState::Normal;
+        isSpriteVisible = true;
+        CollisionManager::GetInstance().AddObject(this);
+    }
+}
+
+void MainShip::EnterInvulnerableState()
+{
+    state = ShipState::Invulnerable;
+    invulnerabilityTimer = INVULNERABILITY_DURATION;
+    flashTimer = FLASH_INTERVAL;
+    CollisionManager::GetInstance().RemoveObject(this);
 }
 
 MainShip::~MainShip()
