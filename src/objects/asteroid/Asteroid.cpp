@@ -77,6 +77,7 @@ void Asteroid::Death()
 
 void Asteroid::AsteroidExplosion()
 {
+    std::cout << "| Asteroid explosion |: " << this << std::endl;
     if (playingExplosion) return;
 
     explosionAnimation->Play(transform.GetPosition(), ASTEROID_SPRITE_SCALE, transform.GetRotation());
@@ -102,8 +103,13 @@ void Asteroid::Destroy()
 
 void Asteroid::OnTriggerEnter2D(Gameobject *other)
 {
-    if (playingExplosion) return;
+    if (playingExplosion || other == this) return;
+    std::cout << "| Asteroid: |" << this << " collided with: " << other << std::endl;
 
+    Asteroid* asteroid = dynamic_cast<Asteroid*>(other);
+    if (asteroid == nullptr) return;
+
+    asteroid->AsteroidExplosion();
     AsteroidExplosion();
 }
 
