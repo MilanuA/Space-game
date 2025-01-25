@@ -3,11 +3,12 @@
 #include "../systems/debug/DebugGame.h"
 
 GameplayScene::GameplayScene() : objectsSpawner(scoreManager),
-mainShip(&healthBar),
-healthBar(LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_background.png"),
-    LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_fill.png"),
-    Vector2(GetRenderWidth(), 40)),
-music() {}
+                                 mainShip(&healthBar),
+                                 healthBar(LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_background.png"),
+                                           LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_fill.png"),
+                                           Vector2(GetRenderWidth(), 40)),
+                                 music(), gameStateManager(scoreManager) {
+}
 
 void GameplayScene::Init(SceneManager &sceneManager)
 {
@@ -23,6 +24,8 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
 
     scoreManager.UpdateScorePerSecond();
     mainShip.Update(GetFrameTime());
+
+    gameStateManager.Update();
 
     CollisionManager::GetInstance().CheckCollisions();
 

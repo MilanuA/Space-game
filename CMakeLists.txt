@@ -73,6 +73,15 @@ add_executable(${PROJECT_NAME} main.cpp
         src/ui/healthBar/HealthBar.h
         src/scenes/DeathScene.cpp
         src/scenes/DeathScene.h
+        src/systems/gameState/GameStateManager.cpp
+        src/systems/gameState/GameStateManager.h
+        src/systems/gameState/states/_baseInterface/IGameState.h
+        src/systems/gameState/states/EarlyState.h
+        src/systems/gameState/states/LateEarlyState.h
+        src/systems/gameState/states/MiddleState.h
+        src/systems/gameState/states/LateMiddleState.h
+        src/systems/gameState/states/LateState.h
+        src/systems/gameState/states/LateLateState.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
