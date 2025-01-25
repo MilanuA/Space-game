@@ -53,7 +53,7 @@ void InitGame()
 {
     SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_HIGHDPI);
     InitWindow(800, 450, "Asteroids Clone");
-  //  ToggleBorderlessWindowed();
+    ToggleBorderlessWindowed();
     SetTargetFPS(FPS);
     InitAudioDevice();
 }

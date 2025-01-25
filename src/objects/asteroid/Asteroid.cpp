@@ -14,12 +14,19 @@ Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid, SCREEN_BUFFER), IHea
     explosionAnimation = new Animation(LoadTexture("../resources/obstacles/asteroid_explode.png"), 8, 0.1f);
 }
 
-void Asteroid::Init(Vector2 startPos, Vector2 direction,  ScoreManager &scoreManager)
+void Asteroid::Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager)
 {
     this->direction = direction;
     transform.SetPosition(startPos);
 
     currentHealth = MAX_ASTEROID_HEALTH;
+
+    float customCollisionDecreaser = 2.6f;
+    float randomScale = GetRandomValue(0.5f, 3.f);
+    transform.SetScale(Vector2(randomScale, randomScale));
+
+    this->GetComponent<ColliderComponent>()->SetCustomCollisionDecreaser(customCollisionDecreaser / randomScale);
+    speed = ASTEROID_BASE_SPEED / randomScale;
 
     playingExplosion = false;
     this->scoreManager = &scoreManager;
@@ -44,7 +51,7 @@ void Asteroid::Update(float deltaTime)
         return;
     }
 
-    transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(direction, ASTEROID_SPEED * deltaTime)));
+    transform.SetPosition(Vector2Add(transform.GetPosition(), Vector2Scale(direction, speed * deltaTime)));
 
     transform.SetRotation(55.0f * deltaTime);
 }
@@ -72,14 +79,14 @@ void Asteroid::Death()
     if (!isActive) return;
 
     scoreManager->UpdateScore(ASTEROID_DEATH_XP);
-   AsteroidExplosion();
+    AsteroidExplosion();
 }
 
 void Asteroid::AsteroidExplosion()
 {
     if (playingExplosion) return;
 
-    explosionAnimation->Play(transform.GetPosition(), ASTEROID_SPRITE_SCALE, transform.GetRotation());
+    explosionAnimation->Play(transform.GetPosition(), transform.GetScale().x, transform.GetRotation());
     playingExplosion = true;
     CollisionManager::GetInstance().RemoveObject(this);
 }

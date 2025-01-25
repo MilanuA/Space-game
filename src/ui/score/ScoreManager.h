@@ -10,6 +10,7 @@ public:
     void UpdateScorePerSecond();
     void Draw() const;
     void UpdateScore(int score);
+    [[nodiscard]] int GetCurrentScore() const { return currentScore; }
 };
 
 

@@ -8,7 +8,7 @@
 #include "../../ui/score/ScoreManager.h"
 
 constexpr int MAX_ASTEROID_HEALTH = 20;
-constexpr int ASTEROID_SPEED = 200;
+constexpr int ASTEROID_BASE_SPEED = 400;
 constexpr float SCREEN_BUFFER = 20.0f;
 constexpr float ASTEROID_SPRITE_SCALE = 2.0f;
 constexpr float ASTEROID_DEATH_XP = 50;
@@ -18,7 +18,7 @@ class Asteroid : public Gameobject, public PoolableObject, public IHealth
 {
     Vector2 direction = {0.0f, 0.0f};
     bool playingExplosion = false;
-
+    int speed = ASTEROID_BASE_SPEED;
 
     void DeactiveAsteroid();
 
