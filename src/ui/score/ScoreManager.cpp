@@ -3,16 +3,34 @@
 #include <raylib.h>
 #include <string>
 
+ScoreManager::ScoreManager(GameStateManager &gameStateManager): gameStateManager(gameStateManager) {
+}
+
 void ScoreManager::UpdateScorePerSecond()
 {
     static float elapsedTime = 0.0f;
-    elapsedTime += GetFrameTime();
+    static float checkStateElapsedTime = 0.0f;
 
-    if (elapsedTime < 1.0f) return;
+    float deltaTime = GetFrameTime();
+    elapsedTime += deltaTime;
+    checkStateElapsedTime += deltaTime;
 
-    UpdateScore(SCORE_PER_SECOND);
-    elapsedTime = 0.0f;
+    if (checkStateElapsedTime >= 10.0f)
+    {
+        UpdateScore(SCORE_PER_SECOND);
+        checkStateElapsedTime = 0.0f;
+        elapsedTime = 0.0f;
+    }
+
+    if (elapsedTime >= 1.0f)
+    {
+        currentScore += SCORE_PER_SECOND;
+        elapsedTime = 0.0f;
+    }
+
+
 }
+
 
 void ScoreManager::Draw() const
 {
@@ -24,4 +42,5 @@ void ScoreManager::Draw() const
 void ScoreManager::UpdateScore(int score)
 {
     currentScore += score;
+    gameStateManager.CheckState(currentScore);
 }

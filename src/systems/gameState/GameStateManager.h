@@ -10,14 +10,13 @@ class GameStateManager
 {
     std::unique_ptr<IGameState> currentState{};
     std::map<int, std::unique_ptr<IGameState>> stateMap{};
-
-    ScoreManager &scoreManager;
     int currentIndex = 0;
 
 public:
-    explicit GameStateManager(ScoreManager &scoreManager);
+    explicit GameStateManager();
     void ShowDebug() const;
-    void Update();
+
+    void CheckState(int currentScore);
     [[nodiscard]] const IGameState& GetCurrentState() const;
 };
 

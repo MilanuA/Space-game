@@ -10,8 +10,7 @@
 #include "states/LateState.h"
 #include "states/MiddleState.h"
 
-GameStateManager::GameStateManager(ScoreManager &scoreManager)
-    : scoreManager(scoreManager)
+GameStateManager::GameStateManager()
 {
     stateMap[0] = std::make_unique<EarlyState>();
     stateMap[1] = std::make_unique<LateEarlyState>();
@@ -23,10 +22,8 @@ GameStateManager::GameStateManager(ScoreManager &scoreManager)
     currentState = std::make_unique<EarlyState>();
 }
 
-void GameStateManager::Update()
+void GameStateManager::CheckState(int currentScore)
 {
-    int currentScore = scoreManager.GetCurrentScore();
-
     if (currentIndex >= stateMap.size() - 1) return;
 
     if (currentScore >= stateMap[currentIndex + 1]->GetNeededScore())
