@@ -3,6 +3,7 @@
 #include <raylib.h>
 #include "../../gameobject/Gameobject.h"
 #include "../../systems/animation/Animation.h"
+#include "../../systems/gameState/GameStateManager.h"
 #include "../../systems/health/IHealth.h"
 #include "../../systems/objectPooling/PoolableObject.h"
 #include "../../ui/score/ScoreManager.h"
@@ -12,7 +13,6 @@ constexpr int ASTEROID_BASE_SPEED = 400;
 constexpr float SCREEN_BUFFER = 20.0f;
 constexpr float ASTEROID_SPRITE_SCALE = 2.0f;
 constexpr float ASTEROID_DEATH_XP = 50;
-
 
 class Asteroid : public Gameobject, public PoolableObject, public IHealth
 {
@@ -28,7 +28,7 @@ class Asteroid : public Gameobject, public PoolableObject, public IHealth
 public:
     Asteroid();
 
-    void Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager);
+    void Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager, GameStateManager &gameStateManager);
 
     void Update(float deltaTime) override;
 
@@ -46,7 +46,4 @@ public:
 
     void AsteroidExplosion();
 };
-
-
-
     #endif //ASTEROID_H

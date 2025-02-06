@@ -1,21 +1,13 @@
 #include "ObjectsSpawner.h"
-
 #include <iostream>
 #include <raymath.h>
-
 #include "../debug/DebugGame.h"
 
-
-ObjectsSpawner::ObjectsSpawner(ScoreManager &scoreManager): projectilePool(INITIAL_PROJECTILE_POOL_SIZE),
-                                                            asteroidPool(INITIAL_PROJECTILE_POOL_SIZE), scoreManager(scoreManager)
+ObjectsSpawner::ObjectsSpawner(ScoreManager &scoreManager, GameStateManager &gameStateManager): projectilePool(INITIAL_PROJECTILE_POOL_SIZE),
+                                                            asteroidPool(INITIAL_PROJECTILE_POOL_SIZE), scoreManager(scoreManager), gameStateManager(gameStateManager)
 {
     std::random_device rd;
     randomEngine = std::mt19937(rd());
-}
-
-void ObjectsSpawner::Init(ScoreManager &scoreManager) const
-{
-    this->scoreManager = scoreManager;
 }
 
 void ObjectsSpawner::Draw() const
@@ -96,7 +88,7 @@ void ObjectsSpawner::SpawnAsteroid()
                 break;
         }
 
-        asteroid->Init(spawnPosition, Vector2Normalize(direction), scoreManager);
+        asteroid->Init(spawnPosition, Vector2Normalize(direction), scoreManager, gameStateManager);
     }
 }
 

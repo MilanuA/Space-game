@@ -1,4 +1,7 @@
 #include "GameStateManager.h"
+
+#include <raylib.h>
+
 #include "../../ui/score/ScoreManager.h"
 #include "states/EarlyState.h"
 #include "states/LateEarlyState.h"
@@ -24,6 +27,8 @@ void GameStateManager::Update()
 {
     int currentScore = scoreManager.GetCurrentScore();
 
+    if (currentIndex >= stateMap.size() - 1) return;
+
     if (currentScore >= stateMap[currentIndex + 1]->GetNeededScore())
     {
         ++currentIndex;
@@ -31,6 +36,16 @@ void GameStateManager::Update()
     }
 }
 
-const IGameState & GameStateManager::GetCurrentState() const {
+const IGameState& GameStateManager::GetCurrentState() const
+{
     return *currentState;
+}
+
+void GameStateManager::ShowDebug() const
+{
+    const int fontSize = 30;
+    const int startX = 10;
+    int startY = 250;
+
+    DrawText(TextFormat("Current state: %s", currentState->GetStateName().c_str()), startX, startY, fontSize, WHITE);
 }

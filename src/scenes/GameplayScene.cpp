@@ -2,7 +2,7 @@
 #include "../systems/collisionManager/CollisionManager.h"
 #include "../systems/debug/DebugGame.h"
 
-GameplayScene::GameplayScene() : objectsSpawner(scoreManager),
+GameplayScene::GameplayScene() : objectsSpawner(scoreManager, gameStateManager),
                                  mainShip(&healthBar),
                                  healthBar(LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_background.png"),
                                            LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_fill.png"),
@@ -63,6 +63,7 @@ void GameplayScene::Draw()
     if (DebugGame::GetInstance().IsDebugEnabled())
     {
         DebugGame::GetInstance().ShowDebugInfo();
+        gameStateManager.ShowDebug();
     }
 }
 

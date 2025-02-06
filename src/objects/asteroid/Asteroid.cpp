@@ -14,7 +14,7 @@ Asteroid::Asteroid(): Gameobject(GameobjectsEnum::Asteroid, SCREEN_BUFFER), IHea
     explosionAnimation = new Animation(LoadTexture("../resources/obstacles/asteroid_explode.png"), 8, 0.1f);
 }
 
-void Asteroid::Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager)
+void Asteroid::Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreManager, GameStateManager &gameStateManager)
 {
     this->direction = direction;
     transform.SetPosition(startPos);
@@ -26,7 +26,7 @@ void Asteroid::Init(Vector2 startPos, Vector2 direction, ScoreManager &scoreMana
     transform.SetScale(Vector2(randomScale, randomScale));
 
     this->GetComponent<ColliderComponent>()->SetCustomCollisionDecreaser(customCollisionDecreaser / randomScale);
-    speed = ASTEROID_BASE_SPEED / randomScale;
+    speed = (ASTEROID_BASE_SPEED / randomScale) * gameStateManager.GetCurrentState().GetAsteroidSpeedMultiplier();
 
     playingExplosion = false;
     this->scoreManager = &scoreManager;

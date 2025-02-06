@@ -16,7 +16,7 @@ class GameStateManager
 
 public:
     explicit GameStateManager(ScoreManager &scoreManager);
-
+    void ShowDebug() const;
     void Update();
     [[nodiscard]] const IGameState& GetCurrentState() const;
 };

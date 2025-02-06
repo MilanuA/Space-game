@@ -24,13 +24,13 @@ class ObjectsSpawner
     std::mt19937 randomEngine;
 
     ScoreManager &scoreManager;
+    GameStateManager &gameStateManager;
 
     void ShowPooledObjectsCount() const;
+
 public:
+    ObjectsSpawner(ScoreManager &scoreManager, GameStateManager &gameStateManager);
 
-    ObjectsSpawner(ScoreManager &scoreManager);
-
-    void Init(ScoreManager &scoreManager) const;
     void Draw() const;
     void Update(float deltaTime);
 

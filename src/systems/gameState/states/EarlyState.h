@@ -6,8 +6,8 @@ class EarlyState : public IGameState
 {
 public:
     [[nodiscard]] float GetAsteroidSpeedMultiplier() const override { return 1.0f; }
-    [[nodiscard]] float GetSpawnRateMultiplier() const override { return 1.0f; }
     [[nodiscard]] std::string GetStateName() const override { return "Early"; }
+    [[nodiscard]] float GetNeededScore() const override {return 0;}
 };
 
 #endif //EARLYSTATE_H
