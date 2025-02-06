@@ -1,8 +1,6 @@
 #include "MainShip.h"
 #include <cmath>
-#include <iostream>
 #include <raymath.h>
-
 #include "../../Helper.h"
 #include "../../gameobject/components/ColliderComponent.h"
 #include "../../gameobject/components/SpriteRendererComponent.h"
@@ -12,7 +10,7 @@
 
 void MainShip::Init(SceneManager* scene_manager)
 {
-    this->AddComponent<SpriteRendererComponent>().SetTexture( LoadTexture("../resources/ships/mainship.png"));
+    this->AddComponent<SpriteRendererComponent>().SetTexture( LoadTexture("../resources/ships/mainship/mainship.png"));
     this->AddComponent<ColliderComponent>().SetCustomCollisionDecreaser(1.2f);
 
     transform.SetPosition(SPAWN_POSITION);
@@ -50,6 +48,7 @@ void MainShip::UpdatePosition()
     const float y = static_cast<float>(GetMouseY()) - transform.GetPosition().y;
     transform.SetRotation(std::atan2(y, x) * RAD2DEG + 90);
 }
+
 
 bool MainShip::IsMovingFast() const
 {
@@ -95,6 +94,8 @@ void MainShip::TakeDamage(int damage)
     EnterInvulnerableState();
     currentHealth -= damage;
 
+    CheckHealth();
+
     if (currentHealth > 0) return;
 
     Death();
@@ -138,6 +139,24 @@ void MainShip::EnterInvulnerableState()
     invulnerabilityTimer = INVULNERABILITY_DURATION;
     flashTimer = FLASH_INTERVAL;
     CollisionManager::GetInstance().RemoveObject(this);
+}
+
+void MainShip::CheckHealth()
+{
+    float healthPercentage = (currentHealth / maxHealth) * 100.0f;
+
+    if (healthPercentage <= 25.0f)
+    {
+        this->GetComponent<SpriteRendererComponent>()->SetTexture(LoadTexture("../resources/ships/mainship/mainship_75.png"));
+    }
+    else if (healthPercentage <= 50.0f)
+    {
+        this->GetComponent<SpriteRendererComponent>()->SetTexture(LoadTexture("../resources/ships/mainship/mainship_50.png"));
+    }
+    else if (healthPercentage <= 75.0f)
+    {
+        this->GetComponent<SpriteRendererComponent>()->SetTexture(LoadTexture("../resources/ships/mainship/mainship_25.png"));
+    }
 }
 
 MainShip::~MainShip()

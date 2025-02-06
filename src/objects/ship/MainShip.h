@@ -33,6 +33,7 @@ class MainShip : public Gameobject, public IHealth
     ShipState state = ShipState::Normal;
 
     void UpdatePosition();
+    void CheckHealth();
     void UpdateInvulnerability(float deltaTime);
 
     void EnterInvulnerableState();
