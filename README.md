@@ -3,21 +3,45 @@
 This project is a simple space-themed game built using C++ and the Raylib library. It features basic game mechanics such as player-controlled ships, projectiles, and asteroids.
 
 **Disclaimer:** This project is still in development, and it is made for educational purposes only.
+
 ## Features
 
 - **Main menu**: Navigate between different game scenes.
 - **Gameplay**: Control the main ship, shoot projectiles, and avoid or destroy asteroids.
-- **Scoring System**: Tracks and displays the player's score.
+- **Scoring system**: Tracks and displays the player's score.
+- **Health bar**: Displays the player's health.
+- **Object pooling**: Handles the pooling of game objects.
+- **Simple Gameobject system**: Ability to add and remove game objects and their components.
+- **Simple Collision detection**: Detects collisions between game objects.
+- **Simple Debug mode**: For debugging purposes. (Press F2 to toggle)
+- **State machine**: Handles the game's state transitions.
 
 ## Project Structure
 
-- **main.cpp**: The entry point of the application.
-- **helper.h**: Contains helper functions.
-- **Scenes**: Contains different scenes like Main Menu and Gameplay.
-- **UI**: Includes components like buttons and score managers.
-- **Objects**: Manages in-game objects.
-- **GameObjects**: Contains base class for gameobjects and their components.
-- **Systems**: Handles game systems.
+### 📂 src
+- 📂 gameobject
+  - 📂 components
+- 📂 objects
+  - 📂 asteroid
+  - 📂 projectile
+  - 📂 ship
+- 📂 scenes
+- 📂 systems
+  - 📂 animation
+  - 📂 collisionManager
+  - 📂 debug
+  - 📂 gameState
+    - 📂 states
+      - 📂 _baseInterface
+  - 📂 health
+  - 📂 objectPooling
+  - 📂 objectsSpawner
+- 📂 ui
+  - 📂 button
+  - 📂 healthBar
+  - 📂 score
+  - 📂 slider
+
 
 ## Dependencies
 
