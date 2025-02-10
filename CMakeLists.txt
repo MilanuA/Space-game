@@ -82,6 +82,17 @@ add_executable(${PROJECT_NAME} main.cpp
         src/systems/gameState/states/LateMiddleState.h
         src/systems/gameState/states/LateState.h
         src/systems/gameState/states/LateLateState.h
+        src/systems/enemiesManager/EnemiesManager.cpp
+        src/systems/enemiesManager/EnemiesManager.h
+        src/objects/enemies/EnemiesEnum.h
+        src/objects/enemies/EnemyBase.cpp
+        src/objects/enemies/EnemyBase.h
+        src/objects/enemies/types/Bomber.cpp
+        src/objects/enemies/types/Bomber.h
+        src/objects/enemies/types/Fighter.cpp
+        src/objects/enemies/types/Fighter.h
+        src/objects/enemies/types/Scout.cpp
+        src/objects/enemies/types/Scout.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
