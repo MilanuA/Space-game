@@ -4,8 +4,11 @@
 #include "src/scenes/GameplayScene.h"
 #include "src/scenes/MainMenuScene.h"
 #include "src/scenes/SceneManager.h"
+#include "src/ui/console/Console.h"
 
 constexpr int FPS = 60;
+
+bool createConsoleLog = true;
 
 void InitGame();
 void DrawExitPrompt();
@@ -107,4 +110,8 @@ void CloseGame()
 {
     CloseWindow();
     CloseAudioDevice();
+
+    if (!createConsoleLog) return;
+
+    Console::ExportLog();
 }

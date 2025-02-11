@@ -1,6 +1,7 @@
 #include "GameplayScene.h"
 #include "../systems/collisionManager/CollisionManager.h"
 #include "../systems/debug/DebugGame.h"
+#include "../ui/console/Console.h"
 
 GameplayScene::GameplayScene() : objectsSpawner(scoreManager, gameStateManager),
                                  mainShip(&healthBar),
@@ -46,6 +47,8 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
         }
     }
 
+    if (IsKeyPressed(KEY_U))
+        Console::Log("Hello", WARNING);
     enemiesManager.UpdateEnemies();
     objectsSpawner.Update(GetFrameTime());
 }
@@ -62,6 +65,7 @@ void GameplayScene::Draw()
     if (DebugGame::GetInstance().IsDebugEnabled())
     {
         DebugGame::GetInstance().ShowDebugInfo();
+        Console::DrawConsole();
         gameStateManager.ShowDebug();
     }
 }

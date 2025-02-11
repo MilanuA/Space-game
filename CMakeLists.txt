@@ -30,7 +30,6 @@ add_executable(${PROJECT_NAME} main.cpp
         src/ui/button/Button.h
         src/scenes/SceneManager.cpp
         src/scenes/SceneManager.h
-        src/scenes/Scene.cpp
         src/scenes/Scene.h
         src/scenes/MainMenuScene.cpp
         src/scenes/MainMenuScene.h
@@ -93,6 +92,7 @@ add_executable(${PROJECT_NAME} main.cpp
         src/objects/enemies/types/Fighter.h
         src/objects/enemies/types/Scout.cpp
         src/objects/enemies/types/Scout.h
+        src/ui/console/Console.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

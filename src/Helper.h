@@ -16,11 +16,6 @@ public:
         return position.x < -outOfScreenBuffer || position.x > GetScreenWidth() + outOfScreenBuffer ||
                position.y < -outOfScreenBuffer || position.y > GetScreenHeight() + outOfScreenBuffer;
     }
-
-    static void DebugLog(std::string message)
-    {
-        std::cout << message << std::endl;
-    }
 };
 
 
