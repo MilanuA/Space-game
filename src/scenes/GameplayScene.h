@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "../objects/ship/MainShip.h"
+#include "../systems/enemiesManager/EnemiesManager.h"
 #include "../systems/gameState/GameStateManager.h"
 #include "../systems/objectsSpawner/ObjectsSpawner.h"
 #include "../ui/healthBar/HealthBar.h"
@@ -16,6 +17,7 @@ class GameplayScene : public Scene
     HealthBar healthBar;
     Music music;
     GameStateManager gameStateManager;
+    EnemiesManager enemiesManager;
 
     void ShowFPS();
 

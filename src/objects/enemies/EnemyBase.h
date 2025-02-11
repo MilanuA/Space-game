@@ -17,6 +17,8 @@ public:
 
     virtual void Attack() {}
     virtual void Movement() {}
+    virtual void Update() {}
+
     void TakeDamage(int damage) override;
     void Heal(int amount) override;
     void Death() override;

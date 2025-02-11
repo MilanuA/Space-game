@@ -2,7 +2,7 @@
 #define BOMBER_H
 #include "../EnemyBase.h"
 
-class Bomber : EnemyBase
+class Bomber : public EnemyBase
 {
     void Attack() override;
     void Movement() override;

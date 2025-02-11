@@ -7,7 +7,7 @@ GameplayScene::GameplayScene() : objectsSpawner(scoreManager, gameStateManager),
                                  healthBar(LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_background.png"),
                                            LoadTexture("../resources/ui/sceneUI/healthBar/healthbar_fill.png"),
                                            Vector2(GetRenderWidth(), 40)),
-                                 music(), gameStateManager(), scoreManager(gameStateManager) {
+                                 music(), scoreManager(gameStateManager) {
 }
 
 void GameplayScene::Init(SceneManager &sceneManager)
@@ -46,6 +46,7 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
         }
     }
 
+    enemiesManager.UpdateEnemies();
     objectsSpawner.Update(GetFrameTime());
 }
 
