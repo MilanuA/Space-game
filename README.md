@@ -15,6 +15,9 @@ This project is a simple space-themed game built using C++ and the Raylib librar
 - **Simple Collision detection**: Detects collisions between game objects.
 - **Simple Debug mode**: For debugging purposes. (Press F2 to toggle)
 - **State machine**: Handles the game's state transitions.
+- **Animation**: Handles the animation of game objects.
+- **Console**: Dynamic in-game console showcasing logs.
+
 
 ## Project Structure
 
@@ -41,6 +44,7 @@ This project is a simple space-themed game built using C++ and the Raylib librar
   - 📂 healthBar
   - 📂 score
   - 📂 slider
+  - 📂 console
 
 
 ## Dependencies

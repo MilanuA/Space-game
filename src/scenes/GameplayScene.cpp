@@ -47,8 +47,6 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
         }
     }
 
-    if (IsKeyPressed(KEY_U))
-        Console::Log("Hello", WARNING);
     enemiesManager.UpdateEnemies();
     objectsSpawner.Update(GetFrameTime());
 }

@@ -93,6 +93,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/objects/enemies/types/Scout.cpp
         src/objects/enemies/types/Scout.h
         src/ui/console/Console.h
+        src/ui/console/MessageEnum.h
+        src/ui/console/LogMessageStruct.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include
