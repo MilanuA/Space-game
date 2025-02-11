@@ -17,6 +17,11 @@ void GameplayScene::Init(SceneManager &sceneManager)
 
     music = LoadMusicStream("../resources/audio/spaceMusic.mp3");
     PlayMusicStream(music);
+
+    // register debug information
+    DebugGame& debug = DebugGame::GetInstance();
+    debug.RegisterLoggable(&objectsSpawner);
+    debug.RegisterLoggable(&gameStateManager);
 }
 
 void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMousePressed)
@@ -35,17 +40,16 @@ void GameplayScene::Update(Vector2 const mousePosition, bool const wasLeftMouseP
 
     if (IsKeyPressed(KEY_F2))
     {
-        DebugGame& debugGame = DebugGame::GetInstance();
-
-        if (debugGame.IsDebugEnabled())
-        {
-            debugGame.DisableDebug();
-        }
-        else
-        {
-            debugGame.EnableDebug();
-        }
+        DebugGame::GetInstance().ToggleDebug();
     }
+
+    if (IsKeyPressed(KEY_F3))
+    {
+        Console::ToggleConsole();
+    }
+
+    if (DebugGame::GetInstance().IsDebugEnabled())
+        DebugGame::GetInstance().CaptureLogs();
 
     enemiesManager.UpdateEnemies();
     objectsSpawner.Update(GetFrameTime());
@@ -60,12 +64,9 @@ void GameplayScene::Draw()
     mainShip.Draw();
     healthBar.Render();
 
-    if (DebugGame::GetInstance().IsDebugEnabled())
-    {
-        DebugGame::GetInstance().ShowDebugInfo();
-        Console::DrawConsole();
-        gameStateManager.ShowDebug();
-    }
+    DebugGame::GetInstance().ShowDebugInfo();
+
+    Console::DrawConsole();
 }
 
 void GameplayScene::Unload()

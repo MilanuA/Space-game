@@ -95,6 +95,7 @@ add_executable(${PROJECT_NAME} main.cpp
         src/ui/console/Console.h
         src/ui/console/MessageEnum.h
         src/ui/console/LogMessageStruct.h
+        src/systems/debug/ILoggable.h
 )
 find_path(RAYLIB_INCLUDE_DIR raylib.h
         PATHS ${CMAKE_BINARY_DIR}/_deps/raylib-build/raylib/include

@@ -13,7 +13,7 @@ This project is a simple space-themed game built using C++ and the Raylib librar
 - **Object pooling**: Handles the pooling of game objects.
 - **Simple Gameobject system**: Ability to add and remove game objects and their components.
 - **Simple Collision detection**: Detects collisions between game objects.
-- **Simple Debug mode**: For debugging purposes. (Press F2 to toggle)
+- **Simple Debug mode**: Used for debugging. It uses simple observer pattern. 
 - **State machine**: Handles the game's state transitions.
 - **Animation**: Handles the animation of game objects.
 - **Console**: Dynamic in-game console showcasing logs.

@@ -1,8 +1,4 @@
 #include "GameStateManager.h"
-
-#include <raylib.h>
-
-#include "../../ui/score/ScoreManager.h"
 #include "states/EarlyState.h"
 #include "states/LateEarlyState.h"
 #include "states/LateLateState.h"
@@ -36,13 +32,4 @@ void GameStateManager::CheckState(int currentScore)
 const IGameState& GameStateManager::GetCurrentState() const
 {
     return *currentState;
-}
-
-void GameStateManager::ShowDebug() const
-{
-    const int fontSize = 30;
-    const int startX = 10;
-    int startY = 250;
-
-    DrawText(TextFormat("Current state: %s", currentState->GetStateName().c_str()), startX, startY, fontSize, WHITE);
 }

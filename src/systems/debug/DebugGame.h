@@ -1,12 +1,20 @@
 #ifndef DEBUGGAME_H
 #define DEBUGGAME_H
+#include <map>
+#include <string>
+#include <vector>
 
-class DebugGame
+#include "ILoggable.h"
+
+class DebugGame : public ILoggable
 {
-    DebugGame() = default;
     bool isDebugEnabled = false;
+    std::vector<ILoggable*> loggableObjects;
+    std::map<ILoggable*, std::string> logMessages;
 
-    void ShowFps();
+    DebugGame();
+
+    [[nodiscard]] std::string Log() const override;
 
 public:
     /// <summary> Gets the instance of the debug game </summary>
@@ -22,14 +30,15 @@ public:
     /// <summary> Checks if the debug is enabled </summary>
     bool IsDebugEnabled() const { return isDebugEnabled; }
 
-    /// <summary> Shows the debug info </summary>
-    void ShowDebugInfo();
+    void ToggleDebug() { isDebugEnabled = !isDebugEnabled; }
+    /// <summary> Register a loggable object </summary>
+    void RegisterLoggable(ILoggable* loggable);
 
-    /// <summary> Enables the debug </summary>
-    void EnableDebug();
+    /// <summary> Displays the logs in Raylib </summary>
+    void ShowDebugInfo() const;
 
-    /// <summary> Disables the debug </summary>
-    void DisableDebug();
+    /// <summary> Captures logs from all loggable objects </summary>
+    void CaptureLogs();
 };
 
 

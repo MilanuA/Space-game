@@ -1,28 +1,45 @@
-
 #include "DebugGame.h"
-
 #include <raylib.h>
 #include <string>
 
-
-void DebugGame::ShowDebugInfo()
+DebugGame::DebugGame()
 {
-    ShowFps();
+    RegisterLoggable(this);
 }
 
-void DebugGame::ShowFps()
+void DebugGame::RegisterLoggable(ILoggable *loggable)
 {
-    std::string fpsText = "FPS: " + std::to_string(GetFPS());
-    DrawText(fpsText.c_str(), 10, 60, 45, WHITE);
+    logMessages[loggable] = loggable->Log();
 }
 
-
-void DebugGame::EnableDebug()
+void DebugGame::ShowDebugInfo() const
 {
-    isDebugEnabled = true;
+    if (!isDebugEnabled) return;
+
+    int xPos = 10;
+    int yPos = 80;
+    int lineSpacing = 20;
+    int fontSize = 30;
+
+    DrawText("Debug: ", xPos, yPos, 40, DARKGRAY);
+    yPos += 40 + lineSpacing;
+
+    for (const auto& entry : logMessages)
+    {
+        DrawText(entry.second.c_str(), xPos, yPos, fontSize, WHITE);
+        yPos += fontSize + lineSpacing;
+    }
 }
 
-void DebugGame::DisableDebug()
+void DebugGame::CaptureLogs()
 {
-    isDebugEnabled = false;
+    for (auto& entry : logMessages)
+    {
+        entry.second = entry.first->Log();
+    }
+}
+
+std::string DebugGame::Log() const
+{
+    return "FPS: " + std::to_string(GetFPS());
 }

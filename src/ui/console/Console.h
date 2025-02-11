@@ -36,6 +36,8 @@ class Console
     static inline int lastMouseY = 0;
     static inline int scrollIndex = 0;
 
+    static inline bool isConsoleOpen = false;
+
 public:
     static void Log(const std::string &message, MessageEnum messageType = DEFAULT, const std::source_location loc = std::source_location::current())
     {
@@ -52,6 +54,8 @@ public:
 
     static void DrawConsole()
     {
+        if (!isConsoleOpen) return;
+
         int screenHeight = GetScreenHeight();
         int screenWidth = GetScreenWidth();
 
@@ -109,6 +113,11 @@ public:
             }
             file.close();
         }
+    }
+
+    static void ToggleConsole()
+    {
+        isConsoleOpen = !isConsoleOpen;
     }
 
 private:
